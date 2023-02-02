@@ -1,0 +1,1 @@
+php artisan export:postman --bearer="1|g0FAdrgp8K4jFxPT5F2dfzRrRRvMCPSug1GpULgs"

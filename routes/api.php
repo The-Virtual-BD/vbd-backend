@@ -21,7 +21,12 @@ use App\Http\Controllers\ReviewController;
 */
 
 // Authentication route
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+// Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', function () {
+    return response()->json([
+        'message' => 'User Register Successfully',
+    ], 200);
+});
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -32,30 +37,27 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/blogger/create', [BloggerController::class, 'store']);
 
     // Post Rout
-    Route::group(['prefix' => 'posts', 'middleware' => ['role:blogger']], function (){
-        Route::get('/myposts',[PostController::class, 'myposts']);
+    Route::group(['prefix' => 'posts', 'middleware' => ['role:blogger']], function () {
+        Route::get('/myposts', [PostController::class, 'myposts']);
         Route::post('/store', [PostController::class, 'store']);
         Route::get('/edit/{post}', [PostController::class, 'edit']);
         Route::put('/update/{post}', [PostController::class, 'update']);
         Route::delete('/destroy/{post}', [PostController::class, 'destroy']);
     });
 
-    Route::group(['prefix' => 'comments'], function (){
+    Route::group(['prefix' => 'comments'], function () {
         Route::post('/store', [CommentController::class, 'store']);
         Route::put('/update/{comment}', [CommentController::class, 'update']);
         Route::delete('/destroy/{comment}', [CommentController::class, 'destroy']);
     });
 
-    Route::group(['prefix' => 'reviews' ], function () {
-        Route::post('/store', [ReviewController::class,'store']);
-        Route::post('/areviewes', [ReviewController::class,'areviewes']);
+    Route::group(['prefix' => 'reviews'], function () {
+        Route::post('/store', [ReviewController::class, 'store']);
+        Route::post('/areviewes', [ReviewController::class, 'areviewes']);
     });
 
     // Subscription routes
-    Route::group(['prefix' => 'subscriptions'], function (){
+    Route::group(['prefix' => 'subscriptions'], function () {
         Route::get('/store', [SubscriptionController::class, 'store']);
     });
-
-
 });
-

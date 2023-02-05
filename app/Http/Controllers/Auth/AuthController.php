@@ -39,6 +39,7 @@ class AuthController extends Controller
             ]);
 
             $user->assignRole('user');
+            
             return response()->json([
                 'message' => 'User Register Successfully',
                 'token' => $user->createToken('AUTH TOKEN')->plainTextToken

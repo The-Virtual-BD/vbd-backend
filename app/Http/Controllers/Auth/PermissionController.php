@@ -15,7 +15,8 @@ class PermissionController extends Controller
         try {
             return response()->json([
                 'status' => true,
-                'permissions' => $permissions
+                'permissions' => $permissions,
+                'message' => 'This is all permission we have.'
             ], 200);
 
         } catch (\Throwable $e) {
@@ -31,7 +32,7 @@ class PermissionController extends Controller
             $request->validate([
                 'name' => 'required|unique:permissions,name'
             ]);
-    
+
             $permission = Permission::create(['name' => $request->name]);
 
             return response()->json([
@@ -65,7 +66,7 @@ class PermissionController extends Controller
             $request->validate([
                 'name' => 'required',
             ]);
-    
+
             $permission->update(['name' => $request->name]);
 
             return response()->json([

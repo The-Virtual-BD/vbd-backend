@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
+    // Registering new user
+    public function register(Request $request){
         try {
             // validate data
             $data = $request->validate([
@@ -53,8 +53,8 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request)
-    {
+    // Loging registerd user
+    public function login(Request $request){
         try {
             $request->validate([
                 'email' => 'required|email',
@@ -62,7 +62,7 @@ class AuthController extends Controller
             ]);
 
             $user = User::where('email', $request->email)->first();
-
+            // If this user is admin user
             if ($user->hasRole('admin')) {
                 if ($this->attempLogin($request->only(['email', 'password']))) {
                     return response()->json([
@@ -73,6 +73,8 @@ class AuthController extends Controller
                     ], 200);
                 }
             }
+
+            // If this user is normal user
             if ($this->attempLogin($request->only(['email', 'password']))) {
                 return response()->json([
                     'user' => $user,
@@ -82,6 +84,7 @@ class AuthController extends Controller
                 ], 200);
             }
 
+            // If credentials didnt match
             return response()->json([
                 'error' => 'Your credentials does not match with our record.'
             ], 401);
@@ -93,19 +96,22 @@ class AuthController extends Controller
         }
     }
 
-    public function attempLogin($data)
-    {
+    // Login attempt
+    public function attempLogin($data){
         return Auth::guard()->attempt($data);
     }
 
-    public function logout(Request $request)
-    {
+    //Loging out and deleting personal access token
+    public function logout(Request $request){
         try {
+            // Deletion personal access token
             Auth::user()->currentAccessToken()->delete();
+            // Returning response if success
             return response()->json([
                 'message' => 'Logout successfull'
             ], 200);
         } catch (\Throwable $e) {
+            // Returning response if response failed
             return response()->json([
                 'error' => $e->getMessage()
             ], 500);

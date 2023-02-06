@@ -21,12 +21,8 @@ use App\Http\Controllers\ReviewController;
 */
 
 // Authentication route
-// Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/register', function () {
-    return response()->json([
-        'message' => 'User Register Successfully',
-    ], 200);
-});
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {

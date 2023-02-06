@@ -39,8 +39,9 @@ class AuthController extends Controller
             ]);
 
             $user->assignRole('user');
-            
+
             return response()->json([
+                'user' => $user,
                 'message' => 'User Register Successfully',
                 'token' => $user->createToken('AUTH TOKEN')->plainTextToken
             ], 200);
@@ -73,6 +74,7 @@ class AuthController extends Controller
             }
             if ($this->attempLogin($request->only(['email', 'password']))) {
                 return response()->json([
+                    'user' => $user,
                     'message' => 'User Login successfully',
                     'role'=> 'user',
                     'token' => $user->createToken('AUTH TOKEN')->plainTextToken

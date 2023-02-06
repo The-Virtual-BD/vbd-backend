@@ -66,6 +66,7 @@ class AuthController extends Controller
             if ($user->hasRole('admin')) {
                 if ($this->attempLogin($request->only(['email', 'password']))) {
                     return response()->json([
+                        'user' => $user,
                         'message' => 'Admin Login successfully',
                         'role'=> 'admin',
                         'token' => $user->createToken('AUTH TOKEN')->plainTextToken

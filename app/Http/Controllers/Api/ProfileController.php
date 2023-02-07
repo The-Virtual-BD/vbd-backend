@@ -42,7 +42,7 @@ class ProfileController extends Controller
 
 
     // Password Update
-    public function passwordup(Request $request, $id)
+    public function passwordup(Request $request, User $user)
     {
         return response()->json([
             'message' => 'Your password updated !',

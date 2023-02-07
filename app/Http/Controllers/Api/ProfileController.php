@@ -44,6 +44,9 @@ class ProfileController extends Controller
     // Password Update
     public function passwordup(Request $request, $id)
     {
+        return response()->json([
+            'message' => 'Your password updated !',
+        ], 200);
         try {
             $request->validate([
                 'password' => 'required|string|confirmed',

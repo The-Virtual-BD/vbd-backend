@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
     Route::controller(ProfileController::class)->group(function () {
-        Route::put('/myprofile/pupdate/{user}', 'passwordup');
+        Route::post('/myprofile/pupdate/{user}', 'passwordup');
     });
 
 

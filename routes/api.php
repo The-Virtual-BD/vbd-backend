@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -28,6 +29,16 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::put('/myprofile/update/{user}', [ProfileController::class, 'update']);
+    Route::put('/myprofile/pupdate/{user}', [ProfileController::class, 'psdupdate']);
+
+
+
+
+
+
+
+
 
     // Blogger routes
     Route::post('/blogger/create', [BloggerController::class, 'store']);

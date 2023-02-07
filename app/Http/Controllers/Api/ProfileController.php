@@ -41,8 +41,8 @@ class ProfileController extends Controller
     }
 
 
-    // Profile Update
-    public function psdupdate(Request $request, $id)
+    // Password Update
+    public function passwordup(Request $request, $id)
     {
         try {
             $request->validate([

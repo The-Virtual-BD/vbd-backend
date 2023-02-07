@@ -29,8 +29,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::put('/myprofile/pupdate/{user}', [ProfileController::class, 'passwordup']);
+
     Route::put('/myprofile/update/{user}', [ProfileController::class, 'update']);
-    Route::put('/myprofile/pupdate/{user}', [ProfileController::class, 'psdupdate']);
 
 
 

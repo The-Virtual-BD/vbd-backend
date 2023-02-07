@@ -14,6 +14,36 @@ class ProfileController extends Controller
     // Profile Update
     public function update(UpdateUserRequest $request, $id)
     {
+        if ($request->file('photo')) {
+            try {
+                $user = User::find($id);
+                $user->first_name = $request->first_name;
+                if ($request->file('photo')) {
+                    $file = $request->file('photo');
+                    $filefullname = time().'.'.$file->getClientOriginalExtension();
+                    $upload_path = 'images/user/photo/';
+                    $fileurl = $upload_path.$filefullname;
+                    $success = $file->move($upload_path, $filefullname);
+                    $user->photo = $fileurl;
+                }
+
+
+                $user->update();
+
+                // If profile updated successfully
+                return response()->json([
+                    'user' => $user,
+                    'message' => 'Profile Picture Updated !',
+                ], 200);
+            } catch (\Throwable $e) {
+                return response()->json([
+                    'error' => $e->getMessage()
+                ]);
+            }
+        }
+
+
+
         try {
             $user = User::find($id);
             $user->first_name = $request->first_name;
@@ -27,6 +57,12 @@ class ProfileController extends Controller
             if ($request->bio) {
                 # code...
                 $user->bio = $request->bio;
+            }
+
+
+            if ($request->blogger_name) {
+                # code...
+                $user->blogger_name = $request->blogger_name;
             }
 
             $user->update();

@@ -28,6 +28,11 @@ class User extends Authenticatable
         'phone',
         'nationality',
         'password',
+        'blogger_name',
+        'bio',
+        'photo',
+        'experties',
+        'status',
     ];
 
     /**

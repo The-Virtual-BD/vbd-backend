@@ -42,8 +42,6 @@ class ProfileController extends Controller
             }
         }
 
-
-
         try {
             $user = User::find($id);
             $user->first_name = $request->first_name;
@@ -55,13 +53,11 @@ class ProfileController extends Controller
             $user->nationality = $request->nationality;
 
             if ($request->bio) {
-                # code...
                 $user->bio = $request->bio;
             }
 
 
             if ($request->blogger_name) {
-                # code...
                 $user->blogger_name = $request->blogger_name;
             }
 

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     // Profile Update
-    public function update(UpdateUserRequest $request, $id)
+    public function update(Request $request, $id)
     {
         if ($request->file('photo')) {
             try {

@@ -24,11 +24,7 @@ class StoreSubscriptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'service_id' => 'required|string',
-            'subject' => 'required|string',
-            'description' => 'required|string',
-            'attachment' => 'required|mimes:zip,rar',
-            'schedule' => 'required',
+            
         ];
     }
 }

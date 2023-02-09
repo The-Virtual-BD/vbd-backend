@@ -26,8 +26,19 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function store(StoreSubscriptionRequest $request)
+    public function store(Request $request)
     {
+
+        $validated = $request->validate([
+            'service_id' => 'required|string',
+            'subject' => 'required|string',
+            'description' => 'required|string',
+            'attachment' => 'required|mimes:zip,rar',
+            'schedule' => 'required',
+        ]);
+
+
+
 
         $subscription = new Subscription();
         $subscription->user_id = auth('sanctum')->user()->id;

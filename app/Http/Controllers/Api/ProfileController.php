@@ -14,6 +14,20 @@ class ProfileController extends Controller
     // Profile Update
     public function update(Request $request, $id)
     {
+        $user = User::find($id);
+
+        $validated = $request->validate([
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'birth_date' => 'required',
+            'profession' => 'required',
+            'phone' => 'required|numeric|unique:users,phone,'. $user->id,
+            'nationality' => 'required',
+            'bio' => 'nullable|string',
+        ]);
+
+
         if ($request->file('photo')) {
             try {
                 $user = User::find($id);
@@ -43,7 +57,7 @@ class ProfileController extends Controller
         }
 
         try {
-            $user = User::find($id);
+
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->email = $request->email;

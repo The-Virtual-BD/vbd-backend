@@ -28,33 +28,7 @@ class ProfileController extends Controller
         ]);
 
 
-        if ($request->file('photo')) {
-            try {
-                $user = User::find($id);
-                $user->first_name = $request->first_name;
-                if ($request->file('photo')) {
-                    $file = $request->file('photo');
-                    $filefullname = time().'.'.$file->getClientOriginalExtension();
-                    $upload_path = 'images/user/photo/';
-                    $fileurl = $upload_path.$filefullname;
-                    $success = $file->move($upload_path, $filefullname);
-                    $user->photo = $fileurl;
-                }
 
-
-                $user->update();
-
-                // If profile updated successfully
-                return response()->json([
-                    'user' => $user,
-                    'message' => 'Profile Picture Updated !',
-                ], 200);
-            } catch (\Throwable $e) {
-                return response()->json([
-                    'error' => $e->getMessage()
-                ]);
-            }
-        }
 
         try {
 
@@ -89,10 +63,37 @@ class ProfileController extends Controller
         }
     }
 
+    public function profilePic(Request $request, $id)
+    {
+        if ($request->file('photo')) {
+            try {
+                $user = User::find($id);
+                if ($request->file('photo')) {
+                    $file = $request->file('photo');
+                    $filefullname = time().'.'.$file->getClientOriginalExtension();
+                    $upload_path = 'images/user/photo/';
+                    $fileurl = $upload_path.$filefullname;
+                    $success = $file->move($upload_path, $filefullname);
+                    $user->photo = $fileurl;
+                }
+                $user->update();
+
+                // If profile updated successfully
+                return response()->json([
+                    'user' => $user,
+                    'message' => 'Profile Picture Updated !',
+                ], 200);
+            } catch (\Throwable $e) {
+                return response()->json([
+                    'error' => $e->getMessage()
+                ]);
+            }
+        }
+    }
+
 
     // Password Update
-    public function passwordup(Request $request, $id)
-    {
+    public function passwordup(Request $request, $id){
 
         try {
             $request->validate([

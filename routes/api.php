@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\BloggerController;
 use App\Http\Controllers\ReviewController;
 
@@ -24,15 +24,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::controller(ProfileController::class)->group(function () {
         Route::put('/myprofile/pupdate/{user}', 'passwordup');
         Route::put('/myprofile/update/{user}', 'update');
+        Route::put('/myprofile/profilePic/{user}', 'profilePic');
     });
-
-
-
-
-
-
-
-
 
     // Blogger routes
     Route::post('/blogger/create', [BloggerController::class, 'store']);

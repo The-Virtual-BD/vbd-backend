@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBloggerRequest;
@@ -22,10 +22,11 @@ class BloggerController extends Controller
         }
     }
 
-    public function store(StoreBloggerRequest $request)
+    public function store(Request $request, $id)
     {
+        $user = User::find($id);
         $blogger = Blogger::create([
-            'user_id' => auth('sanctum')->user()->id,
+            'user_id' => $user->id,
             'name' => $request->name,
             'subject'=>$request->subject,
             'expertise'=>$request->expertise,

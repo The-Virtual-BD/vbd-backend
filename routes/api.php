@@ -3,11 +3,11 @@
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SubscriptionController;
+use App\Http\Controllers\Api\BloggerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\BloggerController;
 use App\Http\Controllers\ReviewController;
 use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
 
@@ -28,7 +28,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     // Blogger routes
-    Route::post('/blogger/create', [BloggerController::class, 'store']);
+    Route::group(['prefix' => 'blogger'], function(){
+
+        Route::post('/store', [BloggerController::class, 'store']);
+    });
 
     // Post Rout
     Route::group(['prefix' => 'posts', 'middleware' => ['role:blogger']], function () {

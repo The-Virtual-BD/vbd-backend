@@ -19,7 +19,7 @@ class SubscriptionController extends Controller
     {
         try {
             $subscriptions = Subscription::all();
-            return response()->json(['message' => 'This is all subscription we have.', 'data' => $subscriptions], 200);
+            return response()->json(['data' => $subscriptions], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => $e->getMessage()
@@ -49,7 +49,7 @@ class SubscriptionController extends Controller
         $subscription->user_id = $user->id;
 
         $subscription->service_id = $request->service_id;
-        
+
         $subscription->subject = $request->subject;
         $subscription->description = $request->description;
         $subscription->schedule = $request->schedule;

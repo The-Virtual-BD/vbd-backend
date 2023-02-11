@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -8,8 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BloggerController;
 use App\Http\Controllers\ReviewController;
-
-
+use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
 
 // Authentication route
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -39,12 +39,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::delete('/destroy/{post}', [PostController::class, 'destroy']);
     });
 
+    // Comments
     Route::group(['prefix' => 'comments'], function () {
         Route::post('/store', [CommentController::class, 'store']);
         Route::put('/update/{comment}', [CommentController::class, 'update']);
         Route::delete('/destroy/{comment}', [CommentController::class, 'destroy']);
     });
 
+    // Reviews
     Route::group(['prefix' => 'reviews'], function () {
         Route::post('/store', [ReviewController::class, 'store']);
         Route::post('/areviewes', [ReviewController::class, 'areviewes']);
@@ -52,6 +54,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // Subscription routes
     Route::group(['prefix' => 'subscriptions'], function () {
-        Route::post('/store', [SubscriptionController::class, 'store']);
+        Route::post('/store/{user}', [SubscriptionController::class, 'store']);
+    });
+
+
+    Route::group(['prefix' => 'services'], function(){
+        Route::get('/activeservices',[ServiceController::class, 'activeservices']);
     });
 });

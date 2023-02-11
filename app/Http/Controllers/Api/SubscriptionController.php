@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubscriptionRequest;
 use App\Models\Subscription;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -26,8 +27,12 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function store(Request $request)
+
+    // Subscription Application
+    public function store(Request $request, $id)
     {
+
+        $user = User::find($id);
 
         $validated = $request->validate([
             'service_id' => 'required|string',
@@ -41,8 +46,10 @@ class SubscriptionController extends Controller
 
 
         $subscription = new Subscription();
-        $subscription->user_id = auth('sanctum')->user()->id;
+        $subscription->user_id = $user->id;
+
         $subscription->service_id = $request->service_id;
+        
         $subscription->subject = $request->subject;
         $subscription->description = $request->description;
         $subscription->schedule = $request->schedule;

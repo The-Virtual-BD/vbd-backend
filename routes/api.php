@@ -1,10 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\BloggerController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Blogger routes
     Route::group(['prefix' => 'blogger'], function(){
 
-        Route::post('/store', [BloggerController::class, 'store']);
+        Route::post('/store/{user}', [BloggerController::class, 'store']);
     });
 
     // Post Rout

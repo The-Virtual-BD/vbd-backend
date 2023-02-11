@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RoleController;
 use App\Http\Controllers\Auth\PermissionController;
 use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\BloggerController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\SubscriptionController;
+use App\Http\Controllers\Api\BloggerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UploadController;
@@ -42,28 +42,28 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Permission routes
         Route::get('/permissions', [PermissionController::class, 'allPermissions']);
         Route::post('/permission/create', [PermissionController::class, 'createPermission']);
-        Route::get('/permission/{id}',[PermissionController::class, 'edit']);
+        Route::get('/permission/{id}', [PermissionController::class, 'edit']);
         Route::put('/permission/update/{id}', [PermissionController::class, 'updatePermission']);
         Route::delete('/permission/destroy/{id}', [PermissionController::class, 'destroy']);
 
         // User routes
         Route::get('/users', [UserController::class, 'allUser']);
         Route::post('/user/create', [UserController::class, 'create']);
-        Route::get('/user/{user}',[UserController::class, 'getUser']);
+        Route::get('/user/{user}', [UserController::class, 'getUser']);
         Route::put('/user/update/{user}', [UserController::class, 'update']);
         Route::delete('/user/destroy/{user}', [UserController::class, 'destroy']);
 
         // Service routes
         Route::get('/services', [ServiceController::class, 'allService']);
         Route::post('/service/create', [ServiceController::class, 'create']);
-        Route::get('/service/{service}',[ServiceController::class, 'getService']);
+        Route::get('/service/{service}', [ServiceController::class, 'getService']);
         Route::put('/service/update/{service}', [ServiceController::class, 'update']);
         Route::delete('/service/destroy/{service}', [ServiceController::class, 'destroy']);
 
         // Subscription routes
-        Route::group(['prefix' => 'subscriptions'], function (){
+        Route::group(['prefix' => 'subscriptions'], function () {
             Route::get('/', [SubscriptionController::class, 'index']);
-            Route::get('/{subscription}',[SubscriptionController::class, 'show']);
+            Route::get('/{subscription}', [SubscriptionController::class, 'show']);
             Route::put('/update/{subscription}', [SubscriptionController::class, 'update']);
             Route::delete('/destroy/{subscription}', [SubscriptionController::class, 'destroy']);
         });
@@ -71,14 +71,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         // Media handeling
         Route::post('/tempUpload', [UploadController::class, 'tempUpload']);
-        Route::delete('/media/{media}/delete', [UploadController::class,'mediaDelete'])->name('mediaDelete');
+        Route::delete('/media/{media}/delete', [UploadController::class, 'mediaDelete'])->name('mediaDelete');
 
 
 
 
-        Route::group(['prefix' => 'projects'], function (){
-            Route::get('/',[ProjectController::class,'index']);
-            Route::post('/store',[ProjectController::class,'store']);
+        Route::group(['prefix' => 'projects'], function () {
+            Route::get('/', [ProjectController::class, 'index']);
+            Route::post('/store', [ProjectController::class, 'store']);
             Route::put('/approve/{comment}', [ProjectController::class, 'approve']);
             Route::delete('/destroy/{comment}', [ProjectController::class, 'destroy']);
         });
@@ -87,15 +87,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Blogger routes
         Route::group(['prefix' => 'bloggerApplication'], function () {
             Route::get('/', [BloggerController::class, 'index']);
-            Route::get('/{blogger}',[BloggerController::class, 'show']);
+            Route::get('/{blogger}', [BloggerController::class, 'show']);
             Route::put('/approve/{blogger}', [BloggerController::class, 'approve']);
             Route::delete('/destroy/{blogger}', [BloggerController::class, 'destroy']);
         });
 
 
         // Post Route
-        Route::group(['prefix' => 'posts'], function (){
-            Route::get('/',[PostController::class, 'index']);
+        Route::group(['prefix' => 'posts'], function () {
+            Route::get('/', [PostController::class, 'index']);
             Route::get('/show/{post}', [PostController::class, 'show']);
             Route::put('/approve/{post}', [PostController::class, 'approve']);
             Route::put('/decline/{post}', [PostController::class, 'decline']);
@@ -103,21 +103,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         });
 
         // Comment Route
-        Route::group(['prefix' => 'comments'], function (){
-            Route::get('/',[CommentController::class,'index']);
+        Route::group(['prefix' => 'comments'], function () {
+            Route::get('/', [CommentController::class, 'index']);
             Route::put('/approve/{comment}', [CommentController::class, 'approve']);
             Route::delete('/destroy/{comment}', [CommentController::class, 'destroy']);
         });
 
         // Review Route
-        Route::group(['prefix' => 'reviews' ], function () {
-            Route::get('/', [ReviewController::class,'index']);
-            Route::put('/approve/{review}', [ReviewController::class,'approve']);
+        Route::group(['prefix' => 'reviews'], function () {
+            Route::get('/', [ReviewController::class, 'index']);
+            Route::put('/approve/{review}', [ReviewController::class, 'approve']);
             Route::delete('/destroy/{review}', [ReviewController::class, 'destroy']);
         });
-
     });
-
 });
-
-

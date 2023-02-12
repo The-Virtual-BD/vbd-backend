@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\BloggerController;
+use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CommentController;
@@ -31,6 +32,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'blogger'], function(){
 
         Route::post('/store/{user}', [BloggerController::class, 'store']);
+    });
+
+
+    // Projects routes
+    Route::group(['prefix' => 'projects'], function(){
+
+        Route::get('/myprojects/{user}', [ProjectController::class, 'myproject']);
+        Route::get('/show/{project}', [ProjectController::class, 'show']);
     });
 
     // Post Rout

@@ -33,7 +33,7 @@ class BloggerController extends Controller
             'description'=>$request->description,
         ]);
 
-        return response()->json(['message' => 'Applied! It is on review. Thanks!'], 200);
+        return response()->json(['message' => 'Your Applications has been Submitted.'], 200);
 
     }
 

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Project;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 
@@ -19,6 +20,12 @@ class ProjectController extends Controller
         $projects = Project::all();
         return response()->json(['message' => 'This is all projects we have.', 'data' => $projects], 200);
 
+    }
+
+    public function myproject($id)
+    {
+        $projects = Project::where('user_id', $id)->get();
+        return response()->json(['message' => 'This is all projects you have.', 'data' => $projects], 200);
     }
 
 
@@ -42,7 +49,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return response()->json(['data' => $project]);
     }
 
 

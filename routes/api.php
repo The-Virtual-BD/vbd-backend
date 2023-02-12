@@ -74,3 +74,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/activeservices',[ServiceController::class, 'activeservices']);
     });
 });
+

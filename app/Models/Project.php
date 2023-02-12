@@ -26,4 +26,12 @@ class Project extends Model
         'status',
         'protfolio',
     ];
+
+
+    protected $casts = [
+        'starting_date'  => 'date:d-M-Y',
+        'ending_date' => 'date:d-M-Y',
+    ];
+
+    //12-jan-Y
 }

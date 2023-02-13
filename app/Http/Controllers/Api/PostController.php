@@ -67,7 +67,7 @@ class PostController extends Controller
         $post = new Post();
         $post->title = $request->title;
         $post->short_description = $request->short_description;
-        $post->description = $request->description;
+        $post->description = $request->descriptions;
         $post->category_id = $request->category_id;
         $post->user_id = auth('sanctum')->user()->id;
 

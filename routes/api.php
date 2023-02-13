@@ -46,8 +46,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // Projects routes
     Route::group(['prefix' => 'projects'], function () {
-
-        Route::get('/myprojects/{user}', [ProjectController::class, 'myproject']);
+        Route::get('/myprojects', [ProjectController::class, 'myproject']);
         Route::get('/show/{project}', [ProjectController::class, 'show']);
     });
 

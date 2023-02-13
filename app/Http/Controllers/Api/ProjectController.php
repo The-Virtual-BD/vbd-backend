@@ -22,9 +22,9 @@ class ProjectController extends Controller
 
     }
 
-    public function myproject($id)
+    public function myproject()
     {
-        $projects = Project::where('user_id', $id)->get();
+        $projects = Project::where('user_id', auth('sanctum')->user()->id)->get();
         return response()->json(['message' => 'This is all projects you have.', 'data' => $projects], 200);
     }
 

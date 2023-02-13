@@ -78,14 +78,14 @@ class PostController extends Controller
         $post->category_id = $request->category_id;
         $post->user_id = auth('sanctum')->user()->id;
 
-        if ($request->file('cover')) {
-            $file = $request->file('cover');
-            $filefullname = time().'.'.$file->getClientOriginalExtension();
-            $upload_path = 'imges/uploads/post/';
-            $fileurl = $upload_path.$filefullname;
-            $success = $file->move($upload_path, $filefullname);
-            $post->cover = $fileurl;
-        }
+        // if ($request->file('cover')) {
+        //     $file = $request->file('cover');
+        //     $filefullname = time().'.'.$file->getClientOriginalExtension();
+        //     $upload_path = 'imges/uploads/post/';
+        //     $fileurl = $upload_path.$filefullname;
+        //     $success = $file->move($upload_path, $filefullname);
+        //     $post->cover = $fileurl;
+        // }
         $post->save();
 
 

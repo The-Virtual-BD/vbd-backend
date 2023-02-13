@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 
@@ -21,9 +22,18 @@ class CategoryController extends Controller
             return response()->json([ 'message' => 'This is all categories we have.', 'data' => $categories ], 200);
 
         } catch (\Throwable $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 500);
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    // Get all active categories
+    public function catlist()
+    {
+        try {
+            $categories = Category::where('status',1)->get();
+            return response()->json(['data' => $categories ], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
         }
     }
 
@@ -111,8 +121,8 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
-    {
+    public function destroy($id){
+        $category = Category::findOrFail($id);
         $category->delete();
         return response()->json([ 'message' => 'Category Deleted Successfully!' ], 200);
     }

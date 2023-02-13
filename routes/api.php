@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\BloggerController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\PostController;
@@ -21,7 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
+    // Profile route
     Route::controller(ProfileController::class)->group(function () {
         Route::put('/myprofile/pupdate/{user}', 'passwordup');
         Route::put('/myprofile/update/{user}', 'update');
@@ -29,21 +30,30 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     // Blogger routes
-    Route::group(['prefix' => 'blogger'], function(){
+    Route::group(['prefix' => 'blogger'], function () {
 
         Route::post('/store/{user}', [BloggerController::class, 'store']);
     });
 
 
+    // Category routes
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/catlist', [CategoryController::class, 'catlist']); // categories/catlist --get
+        Route::post('/store', [CategoryController::class, 'store']); // categories/store --post
+        Route::delete('/destroy/{category}', [CategoryController::class, 'destroy']); // categories/destroy/{category} --post
+    });
+
+
     // Projects routes
-    Route::group(['prefix' => 'projects'], function(){
+    Route::group(['prefix' => 'projects'], function () {
 
         Route::get('/myprojects/{user}', [ProjectController::class, 'myproject']);
         Route::get('/show/{project}', [ProjectController::class, 'show']);
     });
 
     // Post Rout
-    Route::group(['prefix' => 'posts', 'middleware' => ['role:blogger']], function () {
+    // 'middleware' => ['role:blogger']
+    Route::group(['prefix' => 'posts'], function () {
         Route::get('/myposts', [PostController::class, 'myposts']);
         Route::post('/store', [PostController::class, 'store']);
         Route::get('/edit/{post}', [PostController::class, 'edit']);
@@ -55,7 +65,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'posts', 'middleware' => ['role:admin']], function () {
         Route::get('/', [PostController::class, 'index']);
         Route::get('/show/{pst}', [PostController::class, 'show']);
-
     });
 
     // Comments
@@ -77,8 +86,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
 
-    Route::group(['prefix' => 'services'], function(){
-        Route::get('/activeservices',[ServiceController::class, 'activeservices']);
+    Route::group(['prefix' => 'services'], function () {
+        Route::get('/activeservices', [ServiceController::class, 'activeservices']);
     });
 });
-

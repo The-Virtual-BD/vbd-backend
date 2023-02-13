@@ -62,7 +62,7 @@ class ProfileController extends Controller
             ]);
         }
     }
-
+    // Profile picture
     public function profilePic(Request $request, $id)
     {
         if ($request->file('photo')) {

@@ -30,6 +30,21 @@ class PostController extends Controller
         }
     }
 
+    // mypost
+    public function myposts()
+    {
+        try {
+            $posts = Post::where('user_id',auth('sanctum')->user()->id)->get();
+
+            return response()->json(['data' => $posts ], 200);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

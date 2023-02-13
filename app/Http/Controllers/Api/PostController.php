@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\TemporaryFile;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 
 class PostController extends Controller
@@ -61,8 +62,14 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(Request $request)
     {
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'category_id' => 'required|string',
+            'short_description' => 'required|string',
+            'descriptions' => 'required|string',
+        ]);
 
         $post = new Post();
         $post->title = $request->title;

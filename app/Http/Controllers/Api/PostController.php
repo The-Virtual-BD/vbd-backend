@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\TemporaryFile;
+use App\Http\Controllers\Controller;
+
 
 class PostController extends Controller
 {
@@ -89,9 +91,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        return response()->json([ 'message' => 'This is your desired post details!', 'data' => $post ], 200);
+        $post = Post::findOrFail($id);
+        return response()->json(['data' => $post ], 200);
 
     }
 

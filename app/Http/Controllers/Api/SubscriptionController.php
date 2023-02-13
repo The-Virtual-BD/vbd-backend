@@ -11,12 +11,7 @@ use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
-
-
-
-
-    public function index()
-    {
+    public function index() {
         try {
             $subscriptions = Subscription::all();
             return response()->json(['data' => $subscriptions], 200);
@@ -27,10 +22,8 @@ class SubscriptionController extends Controller
         }
     }
 
-
     // Subscription Application
-    public function store(Request $request, $id)
-    {
+    public function store(Request $request, $id) {
 
         $user = User::find($id);
 
@@ -38,22 +31,16 @@ class SubscriptionController extends Controller
             'service_id' => 'required|string',
             'subject' => 'required|string',
             'description' => 'required|string',
-            'attachment' => 'required|mimes:zip,rar',
+            'attachment' => 'nullable|mimes:zip,rar',
             'schedule' => 'required',
         ]);
 
-
-
-
         $subscription = new Subscription();
         $subscription->user_id = $user->id;
-
         $subscription->service_id = $request->service_id;
-
         $subscription->subject = $request->subject;
         $subscription->description = $request->description;
         $subscription->schedule = $request->schedule;
-
 
         if ($request->file('attachment')) {
             $file = $request->file('attachment');
@@ -68,8 +55,7 @@ class SubscriptionController extends Controller
         return response()->json([ 'message' => 'Applied for subscription. We will contac you soon.' ], 200);
     }
 
-    public function show(Subscription $subscription)
-    {
+    public function show(Subscription $subscription) {
         try {
             return response()->json(['message' => 'This is your desired subscripteion','data' => $subscription], 200);
         } catch (\Throwable $e) {
@@ -79,8 +65,7 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function update(Request $request, Subscription $subscription)
-    {
+    public function update(Request $request, Subscription $subscription) {
         try {
             // Update subscription
             $subscription->update([
@@ -97,9 +82,7 @@ class SubscriptionController extends Controller
         }
     }
 
-
-    public function destroy(Subscription $subscription)
-    {
+    public function destroy(Subscription $subscription) {
         try {
             if($subscription->cover) {
                 unlink($subscription->cover);

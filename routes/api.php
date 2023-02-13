@@ -6,9 +6,9 @@ use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\BloggerController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReviewController;
 use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
 
@@ -49,6 +49,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/edit/{post}', [PostController::class, 'edit']);
         Route::put('/update/{post}', [PostController::class, 'update']);
         Route::delete('/destroy/{post}', [PostController::class, 'destroy']);
+    });
+
+    // Post Rout for admin
+    Route::group(['prefix' => 'posts', 'middleware' => ['role:admin']], function () {
+        Route::get('/', [PostController::class, 'index']);
+        Route::get('/show/{pst}', [PostController::class, 'show']);
+
     });
 
     // Comments

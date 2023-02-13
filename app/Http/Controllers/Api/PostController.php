@@ -89,17 +89,17 @@ class PostController extends Controller
         $post->save();
 
 
-        if ($request->image) {
-            foreach ($request->image as $image) {
-                $tempfile = TemporaryFile::where('folder', $image)->first();
-                if ($tempfile) {
-                    $post->addMedia(storage_path('app/images/tmp/' . $image . '/' . $tempfile->filename))
-                        ->toMediaCollection('images');
-                    rmdir(storage_path('app/images/tmp/' . $image));
-                    $tempfile->delete();
-                }
-            }
-        }
+        // if ($request->image) {
+        //     foreach ($request->image as $image) {
+        //         $tempfile = TemporaryFile::where('folder', $image)->first();
+        //         if ($tempfile) {
+        //             $post->addMedia(storage_path('app/images/tmp/' . $image . '/' . $tempfile->filename))
+        //                 ->toMediaCollection('images');
+        //             rmdir(storage_path('app/images/tmp/' . $image));
+        //             $tempfile->delete();
+        //         }
+        //     }
+        // }
 
 
 

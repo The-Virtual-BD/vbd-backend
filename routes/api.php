@@ -54,7 +54,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // 'middleware' => ['role:blogger']
     Route::group(['prefix' => 'posts'], function () {
         Route::get('/myposts', [PostController::class, 'myposts']);
-        Route::post('/store', [PostController::class, 'store']);
+        Route::post('/store', [PostController::class, 'store']); // posts/store --post
         Route::get('/edit/{post}', [PostController::class, 'edit']);
         Route::put('/update/{post}', [PostController::class, 'update']);
         Route::delete('/destroy/{post}', [PostController::class, 'destroy']);

@@ -24,9 +24,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // Profile route
     Route::controller(ProfileController::class)->group(function () {
-        Route::put('/myprofile/pupdate/{user}', 'passwordup');
-        Route::put('/myprofile/update/{user}', 'update');
-        Route::put('/myprofile/profilePic/{user}', 'profilePic');
+        Route::put('/myprofile/pupdate', 'passwordup');
+        Route::put('/myprofile/update', 'update');
+        Route::put('/myprofile/profilePic', 'profilePic');
     });
 
     // Blogger routes

@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     // Profile Update
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $user = User::find($id);
+        $user = User::find(auth('sanctum')->user()->id);
 
         $validated = $request->validate([
             'first_name' => 'required|string',
@@ -62,12 +62,13 @@ class ProfileController extends Controller
             ]);
         }
     }
+
     // Profile picture
-    public function profilePic(Request $request, $id)
+    public function profilePic(Request $request)
     {
         if ($request->file('photo')) {
             try {
-                $user = User::find($id);
+                $user = User::find(auth('sanctum')->user()->id);
                 if ($request->file('photo')) {
                     $file = $request->file('photo');
                     $filefullname = time().'.'.$file->getClientOriginalExtension();
@@ -93,14 +94,14 @@ class ProfileController extends Controller
 
 
     // Password Update
-    public function passwordup(Request $request, $id){
+    public function passwordup(Request $request){
 
         try {
             $request->validate([
                 'password' => 'required|string|confirmed',
             ]);
 
-            $user = User::find($id);
+            $user = User::find(auth('sanctum')->user()->id);
             $user->update([
                 'password' => Hash::make($request->password),
             ]);

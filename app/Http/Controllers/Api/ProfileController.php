@@ -16,7 +16,7 @@ class ProfileController extends Controller
     {
         $user = User::find(auth('sanctum')->user()->id);
 
-        if ($request->file('photo')) {
+        if ($request->photo) {
             // $file = $request->file('photo');
             // $filefullname = time().'.'.$file->getClientOriginalExtension();
             // $upload_path = 'files/profilepic/';

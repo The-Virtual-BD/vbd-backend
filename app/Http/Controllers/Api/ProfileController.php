@@ -68,8 +68,9 @@ class ProfileController extends Controller
     {
 
 
-        return response()->json(['message'=> 'I am in controller'], 200);
-        // if ($request->file('photo')) {
+
+        if ($request->file('photo')) {
+            return response()->json(['message'=> 'I am in controller'], 200);
         //     try {
         //         $user = User::find(auth('sanctum')->user()->id);
         //         if ($request->file('photo')) {
@@ -92,7 +93,7 @@ class ProfileController extends Controller
         //             'error' => $e->getMessage()
         //         ]);
         //     }
-        // }
+        }
     }
 
 

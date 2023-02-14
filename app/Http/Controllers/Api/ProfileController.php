@@ -72,7 +72,7 @@ class ProfileController extends Controller
                 if ($request->file('photo')) {
                     $file = $request->file('photo');
                     $filefullname = time().'.'.$file->getClientOriginalExtension();
-                    $upload_path = 'images/user/photo/';
+                    $upload_path = 'files/profilepic/';
                     $fileurl = $upload_path.$filefullname;
                     $success = $file->move($upload_path, $filefullname);
                     $user->photo = $fileurl;

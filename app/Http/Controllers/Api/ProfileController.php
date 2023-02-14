@@ -32,6 +32,16 @@ class ProfileController extends Controller
 
         try {
 
+            if ($request->file('photo')) {
+                $file = $request->file('photo');
+                $filefullname = time().'.'.$file->getClientOriginalExtension();
+                $upload_path = 'files/profilepic/';
+                $fileurl = $upload_path.$filefullname;
+                $success = $file->move($upload_path, $filefullname);
+                $user->photo = $fileurl;
+                return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !', ], 200);
+            }
+
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->email = $request->email;
@@ -67,35 +77,26 @@ class ProfileController extends Controller
     public function profilePic(Request $request)
     {
 
-        return response()->json(['data'=> $request->photo], 200);
-
-
-
-
         if ($request->file('photo')) {
-            return response()->json(['message'=> 'I am in controller two'], 200);
-        //     try {
-        //         $user = User::find(auth('sanctum')->user()->id);
-        //         if ($request->file('photo')) {
-        //             $file = $request->file('photo');
-        //             $filefullname = time().'.'.$file->getClientOriginalExtension();
-        //             $upload_path = 'files/profilepic/';
-        //             $fileurl = $upload_path.$filefullname;
-        //             $success = $file->move($upload_path, $filefullname);
-        //             $user->photo = $fileurl;
-        //         }
-        //         $user->update();
+            try {
+                $user = User::find(auth('sanctum')->user()->id);
+                if ($request->file('photo')) {
+                    $file = $request->file('photo');
+                    $filefullname = time().'.'.$file->getClientOriginalExtension();
+                    $upload_path = 'files/profilepic/';
+                    $fileurl = $upload_path.$filefullname;
+                    $success = $file->move($upload_path, $filefullname);
+                    $user->photo = $fileurl;
+                }
+                $user->update();
 
-        //         // If profile updated successfully
-        //         return response()->json([
-        //             'user' => $user,
-        //             'message' => 'Profile Picture Updated !',
-        //         ], 200);
-        //     } catch (\Throwable $e) {
-        //         return response()->json([
-        //             'error' => $e->getMessage()
-        //         ]);
-        //     }
+                // If profile updated successfully
+                return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !', ], 200);
+            } catch (\Throwable $e) {
+                return response()->json([
+                    'error' => $e->getMessage()
+                ]);
+            }
         }
     }
 

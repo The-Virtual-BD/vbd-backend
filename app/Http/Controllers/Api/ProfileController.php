@@ -17,12 +17,12 @@ class ProfileController extends Controller
         $user = User::find(auth('sanctum')->user()->id);
 
         if ($request->file('photo')) {
-            $file = $request->file('photo');
-            $filefullname = time().'.'.$file->getClientOriginalExtension();
-            $upload_path = 'files/profilepic/';
-            $fileurl = $upload_path.$filefullname;
-            $success = $file->move($upload_path, $filefullname);
-            $user->photo = $fileurl;
+            // $file = $request->file('photo');
+            // $filefullname = time().'.'.$file->getClientOriginalExtension();
+            // $upload_path = 'files/profilepic/';
+            // $fileurl = $upload_path.$filefullname;
+            // $success = $file->move($upload_path, $filefullname);
+            // $user->photo = $fileurl;
             return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !', ], 200);
         }
 
@@ -38,10 +38,7 @@ class ProfileController extends Controller
         ]);
 
 
-
-
         try {
-
 
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;

@@ -67,10 +67,13 @@ class ProfileController extends Controller
     public function profilePic(Request $request)
     {
 
+        return response()->json(['data'=> $request->photo], 200);
+
+
 
 
         if ($request->file('photo')) {
-            return response()->json(['message'=> 'I am in controller'], 200);
+            return response()->json(['message'=> 'I am in controller two'], 200);
         //     try {
         //         $user = User::find(auth('sanctum')->user()->id);
         //         if ($request->file('photo')) {

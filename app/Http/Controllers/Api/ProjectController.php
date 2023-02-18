@@ -58,6 +58,55 @@ class ProjectController extends Controller
 
 
         $project = new Project();
+        $project->name = $request->name;
+        if ($request->client_name) {
+            $project->client_name = $request->client_name;
+        }
+        $project->user_id = $request->user_id;
+        $project->service_id = $request->service_id;
+        $project->starting_date = $request->starting_date;
+        $project->ending_date = $request->ending_date;
+        $project->value = $request->value;
+        $project->value_paid = $request->value_paid;
+
+        if ($request->value_payable) {
+            $project->value_payable = $request->value_payable;
+        }
+
+
+        if ($request->file('documents')) {
+            $file = $request->file('documents');
+            $filefullname = time().'.'.$file->getClientOriginalExtension();
+            $upload_path = 'imges/uploads/project/documents';
+            $fileurl = $upload_path.$filefullname;
+            $success = $file->move($upload_path, $filefullname);
+            $project->documents = $fileurl;
+        }
+
+        if ($request->file('cover')) {
+            $file = $request->file('cover');
+            $filefullname = time().'.'.$file->getClientOriginalExtension();
+            $upload_path = 'imges/uploads/project/';
+            $fileurl = $upload_path.$filefullname;
+            $success = $file->move($upload_path, $filefullname);
+            $project->cover = $fileurl;
+        }
+
+
+        $project->progress = $request->progress;
+        $project->description = $request->description;
+        $project->short_description = $request->short_description;
+
+        if ($request->status) {
+            $project->status = $request->status;
+        }
+        
+        if ($request->protfolio) {
+            $project->status = $request->protfolio;
+        }
+
+
+        $project->save();
 
 
         return response()->json(['message' => 'New Project Started', 'data' => $project], 200);

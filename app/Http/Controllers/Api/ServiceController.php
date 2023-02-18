@@ -47,7 +47,7 @@ class ServiceController extends Controller
         }
     }
 
-    public function create(StoreServiceRequest $request)
+    public function create(Request $request)
     {
         try {
             // Create service
@@ -71,6 +71,9 @@ class ServiceController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
+
 
     public function update(UpdateServiceRequest $request, Service $service)
     {

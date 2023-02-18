@@ -13,16 +13,10 @@ class PermissionController extends Controller
     {
         $permissions = Permission::all();
         try {
-            return response()->json([
-                'status' => true,
-                'permissions' => $permissions,
-                'message' => 'This is all permission we have.'
-            ], 200);
+            return response()->json([ 'permissions' => $permissions], 200);
 
         } catch (\Throwable $e) {
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 500);
+            return response()->json([ 'error' => $e->getMessage() ], 500);
         }
     }
 

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('value_payable')->nullable();
             $table->string('documents')->nullable();
             $table->string('cover')->nullable();
+            $table->string('progress')->nullable();
             $table->longText('description');
             $table->longText('short_description');
             $table->integer('status')->default(1)->comment('1 => pending, 2 => confirmed, 2 => cancelled');

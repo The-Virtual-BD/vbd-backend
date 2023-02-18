@@ -6,6 +6,8 @@ use App\Models\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Http\Request;
+
 
 class ProjectController extends Controller
 {
@@ -35,9 +37,30 @@ class ProjectController extends Controller
      * @param  \App\Http\Requests\StoreProjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProjectRequest $request)
+    public function store(Request $request)
     {
-        return response()->json(['message' => 'New Project Started'], 200);
+
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'client_name' => 'nullable|string',
+            'user_id' => 'nullable|string',
+            'service_id' => 'required|string',
+            'starting_date' => 'required|string',
+            'ending_date' => 'required|string',
+            'value' => 'nullable|string',
+            'value_paid' => 'nullable|string',
+            'value_payable' => 'nullable|string',
+            'documents' => 'nullable',
+            'cover' => 'nullable',
+            'description' => 'required|string',
+            'short_description' => 'required|string',
+        ]);
+
+
+        $project = new Project();
+
+
+        return response()->json(['message' => 'New Project Started', 'data' => $project], 200);
 
     }
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\NoticeController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\ReviewController;
 
@@ -30,6 +31,9 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
 
     // Category routes
     Route::apiResource('categories', CategoryController::class);
+
+    // Notice controller
+    Route::apiResource('notices', NoticeController::class);
 
 
 

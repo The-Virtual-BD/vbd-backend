@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Comment;
 use App\Http\Controllers\Controller;
@@ -17,9 +17,9 @@ class CommentController extends Controller
     public function index()
     {
         try {
-            $posts = Comment::all();
+            $comment = Comment::all();
 
-            return response()->json([ 'message' => 'This is all Comment we have.', 'data' => $posts ], 200);
+            return response()->json(['data' => $comment ], 200);
 
         } catch (\Throwable $e) {
             return response()->json([

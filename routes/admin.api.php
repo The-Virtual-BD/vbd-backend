@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
     Route::apiResource('categories', CategoryController::class);
 
 
-    
+
     // Role routes
     Route::get('/roles', [RoleController::class, 'allRoles']);
     Route::post('/role/create', [RoleController::class, 'createRole']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 
@@ -66,7 +67,8 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return response()->json([ 'data' => $comment ], 200);
+
     }
 
     /**

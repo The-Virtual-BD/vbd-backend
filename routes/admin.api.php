@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\BloggerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\UploadController;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\ReviewController;
 
@@ -104,6 +104,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
     // Comment Route
     Route::group(['prefix' => 'comments'], function () {
         Route::get('/', [CommentController::class, 'index']);
+        Route::get('/show/{comment}', [CommentController::class, 'show']);
         Route::put('/approve/{comment}', [CommentController::class, 'approve']);
         Route::delete('/destroy/{comment}', [CommentController::class, 'destroy']);
     });

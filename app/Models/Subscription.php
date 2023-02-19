@@ -12,4 +12,15 @@ class Subscription extends Model
     protected $fillable = [
         'user_id', 'service_id', 'subject', 'description', 'attachment', 'schedule', 'status'
     ];
+
+
+
+    public function applicant()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function service()
+    {
+        return $this->belongsTo(Service::class,'service_id');
+    }
 }

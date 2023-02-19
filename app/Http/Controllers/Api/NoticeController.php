@@ -51,7 +51,7 @@ class NoticeController extends Controller
         if ($request->file('document')) {
             $file = $request->file('document');
             $filefullname = time().'.'.$file->getClientOriginalExtension();
-            $upload_path = 'imges/uploads/project/';
+            $upload_path = 'imges/uploads/notice/';
             $fileurl = $upload_path.$filefullname;
             $success = $file->move($upload_path, $filefullname);
             $notice->document = $fileurl;
@@ -103,7 +103,7 @@ class NoticeController extends Controller
             }
             $file = $request->file('document');
             $filefullname = time().'.'.$file->getClientOriginalExtension();
-            $upload_path = 'imges/uploads/project/';
+            $upload_path = 'imges/uploads/notice/';
             $fileurl = $upload_path.$filefullname;
             $success = $file->move($upload_path, $filefullname);
             $notice->document = $fileurl;

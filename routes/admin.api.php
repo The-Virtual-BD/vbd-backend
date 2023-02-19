@@ -26,91 +26,92 @@ use App\Http\Controllers\ReviewController;
 |
 */
 
-Route::group(['middleware' => ['auth:sanctum','role:admin']], function () {
+Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
 
-        // Category routes
-        Route::resource('categories', CategoryController::class);
-        // Role routes
-        Route::get('/roles', [RoleController::class, 'allRoles']);
-        Route::post('/role/create', [RoleController::class, 'createRole']);
-        Route::get('/role/{id}', [RoleController::class, 'edit']);
-        Route::put('/role/update/{id}', [RoleController::class, 'updateRole']);
-        Route::delete('/role/destroy/{id}', [RoleController::class, 'destroy']);
+    // Category routes
+    Route::resource('categories', CategoryController::class);
+    // Role routes
+    Route::get('/roles', [RoleController::class, 'allRoles']);
+    Route::post('/role/create', [RoleController::class, 'createRole']);
+    Route::get('/role/{id}', [RoleController::class, 'edit']);
+    Route::put('/role/update/{id}', [RoleController::class, 'updateRole']);
+    Route::delete('/role/destroy/{id}', [RoleController::class, 'destroy']);
 
-        // Permission routes
-        Route::get('/permissions', [PermissionController::class, 'allPermissions']);
-        Route::post('/permission/create', [PermissionController::class, 'createPermission']);
-        Route::get('/permission/{id}', [PermissionController::class, 'edit']);
-        Route::put('/permission/update/{id}', [PermissionController::class, 'updatePermission']);
-        Route::delete('/permission/destroy/{id}', [PermissionController::class, 'destroy']);
+    // Permission routes
+    Route::get('/permissions', [PermissionController::class, 'allPermissions']);
+    Route::post('/permission/create', [PermissionController::class, 'createPermission']);
+    Route::get('/permission/{id}', [PermissionController::class, 'edit']);
+    Route::put('/permission/update/{id}', [PermissionController::class, 'updatePermission']);
+    Route::delete('/permission/destroy/{id}', [PermissionController::class, 'destroy']);
 
-        // User routes
-        Route::get('/users', [UserController::class, 'allUser']);
-        Route::post('/user/create', [UserController::class, 'create']);
-        Route::get('/user/{user}', [UserController::class, 'getUser']);
-        Route::put('/user/update/{user}', [UserController::class, 'update']);
-        Route::delete('/user/destroy/{user}', [UserController::class, 'destroy']);
+    // User routes
+    Route::get('/users', [UserController::class, 'allUser']);
+    Route::post('/user/create', [UserController::class, 'create']);
+    Route::get('/user/{user}', [UserController::class, 'getUser']);
+    Route::put('/user/update/{user}', [UserController::class, 'update']);
+    Route::delete('/user/destroy/{user}', [UserController::class, 'destroy']);
 
-        // Service routes
-        Route::get('/services', [ServiceController::class, 'allService']);
-        Route::post('/service/create', [ServiceController::class, 'create']);
-        Route::get('/service/{service}', [ServiceController::class, 'getService']);
-        Route::put('/service/update/{service}', [ServiceController::class, 'update']);
-        Route::delete('/service/destroy/{service}', [ServiceController::class, 'destroy']);
+    // Service routes
+    Route::get('/services', [ServiceController::class, 'allService']);
+    Route::post('/service/create', [ServiceController::class, 'create']);
+    Route::get('/service/{service}', [ServiceController::class, 'getService']);
+    Route::put('/service/update/{service}', [ServiceController::class, 'update']);
+    Route::delete('/service/destroy/{service}', [ServiceController::class, 'destroy']);
 
-        // Subscription routes
-        Route::group(['prefix' => 'subscriptions'], function () {
-            Route::get('/', [SubscriptionController::class, 'index']);
-            Route::get('/{subscription}', [SubscriptionController::class, 'show']);
-            Route::put('/update/{subscription}', [SubscriptionController::class, 'update']);
-            Route::delete('/destroy/{subscription}', [SubscriptionController::class, 'destroy']);
-        });
-
-
-        // Media handeling
-        Route::post('/tempUpload', [UploadController::class, 'tempUpload']);
-        Route::delete('/media/{media}/delete', [UploadController::class, 'mediaDelete'])->name('mediaDelete');
+    // Subscription routes
+    Route::group(['prefix' => 'subscriptions'], function () {
+        Route::get('/', [SubscriptionController::class, 'index']);
+        Route::get('/{subscription}', [SubscriptionController::class, 'show']);
+        Route::put('/update/{subscription}', [SubscriptionController::class, 'update']);
+        Route::delete('/destroy/{subscription}', [SubscriptionController::class, 'destroy']);
+    });
 
 
-
-        // Projects
-        Route::group(['prefix' => 'projects'], function () {
-            Route::get('/', [ProjectController::class, 'index']);
-            Route::post('/store', [ProjectController::class, 'store']);
-            Route::put('/approve/{comment}', [ProjectController::class, 'approve']);
-            Route::delete('/destroy/{comment}', [ProjectController::class, 'destroy']);
-        });
+    // Media handeling
+    Route::post('/tempUpload', [UploadController::class, 'tempUpload']);
+    Route::delete('/media/{media}/delete', [UploadController::class, 'mediaDelete'])->name('mediaDelete');
 
 
-        // Blogger routes
-        Route::group(['prefix' => 'bloggerApplication'], function () {
-            Route::get('/', [BloggerController::class, 'index']);
-            Route::get('/{blogger}', [BloggerController::class, 'show']);
-            Route::put('/approve/{blogger}', [BloggerController::class, 'approve']);
-            Route::delete('/destroy/{blogger}', [BloggerController::class, 'destroy']);
-        });
+
+    // Projects
+    Route::group(['prefix' => 'projects'], function () {
+        Route::get('/', [ProjectController::class, 'index']);
+        Route::get('/show/{project}', [ProjectController::class, 'show']);
+        Route::post('/store', [ProjectController::class, 'store']);
+        Route::put('/approve/{comment}', [ProjectController::class, 'approve']);
+        Route::delete('/destroy/{comment}', [ProjectController::class, 'destroy']);
+    });
 
 
-        // Post Route
-        Route::group(['prefix' => 'posts'], function () {
-            Route::get('/', [PostController::class, 'index']);
-            Route::get('/show/{post}', [PostController::class, 'show']);
-            Route::put('/approve/{post}', [PostController::class, 'approve']);
-            Route::put('/decline/{post}', [PostController::class, 'decline']);
-            Route::delete('/destroy/{post}', [PostController::class, 'destroy']);
-        });
+    // Blogger routes
+    Route::group(['prefix' => 'bloggerApplication'], function () {
+        Route::get('/', [BloggerController::class, 'index']);
+        Route::get('/{blogger}', [BloggerController::class, 'show']);
+        Route::put('/approve/{blogger}', [BloggerController::class, 'approve']);
+        Route::delete('/destroy/{blogger}', [BloggerController::class, 'destroy']);
+    });
 
-        // Comment Route
-        Route::group(['prefix' => 'comments'], function () {
-            Route::get('/', [CommentController::class, 'index']);
-            Route::put('/approve/{comment}', [CommentController::class, 'approve']);
-            Route::delete('/destroy/{comment}', [CommentController::class, 'destroy']);
-        });
 
-        // Review Route
-        Route::group(['prefix' => 'reviews'], function () {
-            Route::get('/', [ReviewController::class, 'index']);
-            Route::put('/approve/{review}', [ReviewController::class, 'approve']);
-            Route::delete('/destroy/{review}', [ReviewController::class, 'destroy']);
-        });
+    // Post Route
+    Route::group(['prefix' => 'posts'], function () {
+        Route::get('/', [PostController::class, 'index']);
+        Route::get('/show/{post}', [PostController::class, 'show']);
+        Route::put('/approve/{post}', [PostController::class, 'approve']);
+        Route::put('/decline/{post}', [PostController::class, 'decline']);
+        Route::delete('/destroy/{post}', [PostController::class, 'destroy']);
+    });
+
+    // Comment Route
+    Route::group(['prefix' => 'comments'], function () {
+        Route::get('/', [CommentController::class, 'index']);
+        Route::put('/approve/{comment}', [CommentController::class, 'approve']);
+        Route::delete('/destroy/{comment}', [CommentController::class, 'destroy']);
+    });
+
+    // Review Route
+    Route::group(['prefix' => 'reviews'], function () {
+        Route::get('/', [ReviewController::class, 'index']);
+        Route::put('/approve/{review}', [ReviewController::class, 'approve']);
+        Route::delete('/destroy/{review}', [ReviewController::class, 'destroy']);
+    });
 });

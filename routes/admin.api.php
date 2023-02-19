@@ -85,8 +85,8 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::get('/', [ProjectController::class, 'index']);
         Route::get('/show/{project}', [ProjectController::class, 'show']);
         Route::post('/store', [ProjectController::class, 'store']);
-        Route::put('/approve/{comment}', [ProjectController::class, 'approve']);
-        Route::delete('/destroy/{comment}', [ProjectController::class, 'destroy']);
+        Route::put('/approve/{project}', [ProjectController::class, 'approve']);
+        Route::delete('/destroy/{project}', [ProjectController::class, 'destroy']);
     });
 
 

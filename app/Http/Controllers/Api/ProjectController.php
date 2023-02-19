@@ -143,8 +143,19 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy( $id)
     {
-        //
+        $project = Project::findOrFail($id);
+        // Delete old doccument
+        if($project->documents ) {
+            unlink($project->documents );
+        }
+        // Delete old doccument
+        if($project->cover ) {
+            unlink($project->cover );
+        }
+        $project->delete();
+        return response()->json(['message' => 'Project Deleted.'], 200);
+
     }
 }

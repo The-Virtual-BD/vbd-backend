@@ -65,11 +65,12 @@ class BloggerController extends Controller
     }
 
 
-    public function destroy(Blogger $blogger)
+    public function destroy($id)
     {
+        $blogger = Blogger::findOrFail($id);
         try {
             $blogger->delete();
-            return response()->json(['status' => true, 'message' => 'Request cancelled'], 200);
+            return response()->json(['message' => 'Request cancelled'], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => false,

@@ -65,8 +65,9 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show( $id)
     {
+        $comment = Comment::findOrFail($id);
         return response()->json([ 'data' => $comment ], 200);
 
     }

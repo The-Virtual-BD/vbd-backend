@@ -8,7 +8,7 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\BloggerController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Api\CommentController;
@@ -29,7 +29,10 @@ use App\Http\Controllers\ReviewController;
 Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
 
     // Category routes
-    Route::resource('categories', CategoryController::class);
+    Route::apiResource('categories', CategoryController::class);
+
+
+    
     // Role routes
     Route::get('/roles', [RoleController::class, 'allRoles']);
     Route::post('/role/create', [RoleController::class, 'createRole']);

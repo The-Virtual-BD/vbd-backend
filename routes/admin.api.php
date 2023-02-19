@@ -12,7 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\ReviewController;
 
 /*

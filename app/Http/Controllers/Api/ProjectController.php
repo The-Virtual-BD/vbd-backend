@@ -18,10 +18,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-
         $projects = Project::all();
-        return response()->json(['message' => 'This is all projects we have.', 'data' => $projects], 200);
-
+        return response()->json([ 'data' => $projects], 200);
     }
 
     public function myproject()
@@ -63,7 +61,7 @@ class ProjectController extends Controller
         if ($request->client_name) {
             $project->client_name = $request->client_name;
         }
-        
+
         $project->user_id = $request->user_id;
         $project->service_id = $request->service_id;
         $project->starting_date = $request->starting_date;

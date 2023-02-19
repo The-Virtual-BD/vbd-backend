@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\BloggerController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProjectController;
@@ -26,9 +26,7 @@ use App\Http\Controllers\ReviewController;
 |
 */
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-
-    Route::group(['middleware' => ['role:admin'], 'as' => 'admin.'], function () {
+Route::group(['middleware' => ['auth:sanctum','role:admin']], function () {
 
         // Category routes
         Route::resource('categories', CategoryController::class);
@@ -75,7 +73,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
 
-
+        // Projects
         Route::group(['prefix' => 'projects'], function () {
             Route::get('/', [ProjectController::class, 'index']);
             Route::post('/store', [ProjectController::class, 'store']);
@@ -115,5 +113,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('/approve/{review}', [ReviewController::class, 'approve']);
             Route::delete('/destroy/{review}', [ReviewController::class, 'destroy']);
         });
-    });
 });

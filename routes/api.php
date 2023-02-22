@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'blogger'], function () {
 
         Route::post('/store/{user}', [BloggerController::class, 'store']);
+
     });
 
 
@@ -83,7 +84,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Subscription routes
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::post('/store/{user}', [SubscriptionController::class, 'store']);
-        Route::post('/approve/{subscription}', [SubscriptionController::class, 'approve']);
     });
 
 

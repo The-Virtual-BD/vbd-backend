@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::get('/', [SubscriptionController::class, 'index']);
         Route::get('/{subscription}', [SubscriptionController::class, 'show']);
         Route::put('/update/{subscription}', [SubscriptionController::class, 'update']);
+        Route::post('/approve/{subscription}', [SubscriptionController::class, 'approve']);
         Route::delete('/destroy/{subscription}', [SubscriptionController::class, 'destroy']);
     });
 

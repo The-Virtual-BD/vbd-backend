@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\ReviewController;
 use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
 

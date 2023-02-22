@@ -171,10 +171,7 @@ class ProjectController extends Controller
 
 
         if ($request->file('documents')) {
-            // Delete old doccument
-            if($project->documents ) {
-                unlink($project->documents );
-            }
+
 
             $file = $request->file('documents');
             $filefullname = time().'.'.$file->getClientOriginalExtension();
@@ -185,10 +182,7 @@ class ProjectController extends Controller
         }
 
         if ($request->file('cover')) {
-            // Delete old doccument
-            if($project->cover ) {
-                unlink($project->cover );
-            }
+            
             $file = $request->file('cover');
             $filefullname = time().'.'.$file->getClientOriginalExtension();
             $upload_path = 'imges/uploads/project/';

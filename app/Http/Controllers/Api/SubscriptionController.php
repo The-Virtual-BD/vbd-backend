@@ -82,6 +82,20 @@ class SubscriptionController extends Controller
         }
     }
 
+    public function approve(Subscription $subscription)
+    {
+        try {
+            $subscription->status = 3;
+            $subscription->update();
+            return response()->json(['message' =>  'Subscription accepted !'], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
     public function destroy(Subscription $subscription) {
         try {
             if($subscription->cover) {

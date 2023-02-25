@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Review;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use App\Http\Controllers\Controller;
+
 
 class ReviewController extends Controller
 {
@@ -15,14 +17,14 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviewes = Review::all();
-        return response()->json(['message' => 'This is all review we have!', 'data' => $reviewes], 200);
-
+        $reviewes = Review::where('user_id', auth('sanctum')->user()->id)->get();
+        return response()->json(['data' => $reviewes], 200);
     }
+
     public function areviewes()
     {
-        $reviewes = Review::where('status', 2)->get();
-        return response()->json(['message' => 'This is all review we have!', 'data' => $reviewes], 200);
+        $reviewes = Review::all();
+        return response()->json(['data' => $reviewes], 200);
     }
 
 
@@ -83,7 +85,6 @@ class ReviewController extends Controller
     {
         $review->update(['status' => 2]);
         return response()->json(['message' => 'Review approved and published!'], 200);
-
     }
 
     /**

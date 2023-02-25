@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\NoticeController;
+use App\Http\Controllers\Api\PermissionController as ApiPermissionController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\ReviewController;
 
@@ -119,8 +120,9 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
 
     // Review Route
     Route::group(['prefix' => 'reviews'], function () {
-        Route::get('/', [ReviewController::class, 'index']);
+        Route::get('/', [ReviewController::class, 'areviewes']);
         Route::put('/approve/{review}', [ReviewController::class, 'approve']);
         Route::delete('/destroy/{review}', [ReviewController::class, 'destroy']);
     });
+
 });

@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Reviews
     Route::group(['prefix' => 'reviews'], function () {
         Route::post('/store', [ReviewController::class, 'store']);
-        Route::post('/areviewes', [ReviewController::class, 'areviewes']);
+        Route::get('/myreviews', [ReviewController::class, 'index']);
     });
 
     // Subscription routes

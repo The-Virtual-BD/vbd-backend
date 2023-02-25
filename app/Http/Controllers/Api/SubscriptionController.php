@@ -31,7 +31,7 @@ class SubscriptionController extends Controller
             'service_id' => 'required|string',
             'subject' => 'required|string',
             'description' => 'required|string',
-            'attachment' => 'nullable|mimes:zip,rar',
+            'attachment' => 'nullable|mimes:jpg,jpeg,png,doc,docx,pdf,svg,zip,rar',
             'schedule' => 'required',
         ]);
 

@@ -33,7 +33,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'blogger'], function () {
 
         Route::post('/store/{user}', [BloggerController::class, 'store']);
-
     });
 
 
@@ -62,11 +61,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::delete('/destroy/{post}', [PostController::class, 'destroy']);
     });
 
-    // Post Rout for admin
-    Route::group(['prefix' => 'posts', 'middleware' => ['role:admin']], function () {
-        Route::get('/', [PostController::class, 'index']);
-        Route::get('/show/{pst}', [PostController::class, 'show']);
-    });
+    
 
     // Comments
     Route::group(['prefix' => 'comments'], function () {
@@ -86,8 +81,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/store/{user}', [SubscriptionController::class, 'store']);
     });
 
-
     Route::group(['prefix' => 'services'], function () {
         Route::get('/activeservices', [ServiceController::class, 'activeservices']);
     });
+});
+
+
+// Newsletter Subscriber route
+Route::group(['prefix' => 'newsSubscriber'], function () {
+    Route::post('/store', [NewsSubscriberController::class, 'store']);
+});
+// Job Application Route
+Route::group(['prefix' => 'jobapplications'], function () {
+    Route::post('/store', [JobApplicationController::class, 'store']);
 });

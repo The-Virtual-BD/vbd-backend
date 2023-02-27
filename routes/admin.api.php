@@ -12,9 +12,13 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\JobApplicationController;
+use App\Http\Controllers\Api\NewsletterController;
+use App\Http\Controllers\Api\NewsSubscriberController;
 use App\Http\Controllers\Api\NoticeController;
 use App\Http\Controllers\Api\PermissionController as ApiPermissionController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\VaccancyController;
 use App\Http\Controllers\ReviewController;
 
 /*
@@ -125,4 +129,40 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::delete('/destroy/{review}', [ReviewController::class, 'destroy']);
     });
 
+
+    // Newsletter route
+    Route::group(['prefix' => 'newsletters'], function () {
+        Route::get('/', [NewsletterController::class, 'index']);
+        Route::get('/{newsletter}', [NewsletterController::class, 'show']);
+        Route::get('/send/{newsletter}', [NewsletterController::class, 'send']);
+        Route::post('/store', [NewsletterController::class, 'store']);
+        Route::put('/update/{newsletter}', [NewsletterController::class, 'update']);
+        Route::delete('/destroy/{newsletter}', [NewsletterController::class, 'destroy']);
+    });
+
+    // Newsletter Subscriber route
+    Route::group(['prefix' => 'newsSubscriber'], function () {
+        Route::get('/', [NewsSubscriberController::class, 'index']);
+        Route::post('/store', [NewsSubscriberController::class, 'store']);
+        Route::put('/update/{subscriber}', [NewsSubscriberController::class, 'update']);
+        Route::delete('/destroy/{subscriber}', [NewsSubscriberController::class, 'destroy']);
+    });
+
+
+    // Vaccancy Route
+    Route::group(['prefix' => 'vaccancies'], function () {
+        Route::get('/', [VaccancyController::class, 'index']);
+        Route::get('/{vaccancy}', [VaccancyController::class, 'show']);
+        Route::post('/store', [VaccancyController::class, 'store']);
+        Route::put('/update/{vaccancy}', [VaccancyController::class, 'update']);
+        Route::delete('/destroy/{vaccancy}', [VaccancyController::class, 'destroy']);
+    });
+
+
+    // Job Application Route
+    Route::group(['prefix' => 'jobapplications'], function () {
+        Route::get('/', [JobApplicationController::class, 'index']);
+        Route::get('/{application}', [JobApplicationController::class, 'show']);
+        Route::delete('/destroy/{application}', [JobApplicationController::class, 'destroy']);
+    });
 });

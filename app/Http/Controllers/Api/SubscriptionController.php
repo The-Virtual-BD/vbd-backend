@@ -24,11 +24,8 @@ class SubscriptionController extends Controller
     }
 
     // Subscription Application
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-
-        $user = User::find($id);
-
         $validated = $request->validate([
             'service_id' => 'required|string',
             'subject' => 'required|string',
@@ -38,7 +35,7 @@ class SubscriptionController extends Controller
         ]);
 
         $subscription = new Subscription();
-        $subscription->user_id = $user->id;
+        $subscription->user_id = auth('sanctum')->user()->id;
         $subscription->service_id = $request->service_id;
         $subscription->subject = $request->subject;
         $subscription->description = $request->description;

@@ -63,7 +63,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
 
-
     // Comments
     Route::group(['prefix' => 'comments'], function () {
         Route::post('/store', [CommentController::class, 'store']);
@@ -97,7 +96,7 @@ Route::group(['prefix' => 'jobapplications'], function () {
 
 //Get all notice
 Route::group(['prefix'=>'notices'], function (){
-    Route::get('allnotice', [NoticeController::class,'index']);
+    Route::get('/allnotice', [NoticeController::class,'index']);
 });
 
 

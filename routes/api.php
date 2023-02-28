@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\NoticeController;
 use App\Http\Controllers\ReviewController;
 use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
 
@@ -61,7 +62,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::delete('/destroy/{post}', [PostController::class, 'destroy']);
     });
 
-    
+
 
     // Comments
     Route::group(['prefix' => 'comments'], function () {
@@ -81,9 +82,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/store/{user}', [SubscriptionController::class, 'store']);
     });
 
-    Route::group(['prefix' => 'services'], function () {
-        Route::get('/activeservices', [ServiceController::class, 'activeservices']);
-    });
+
 });
 
 
@@ -95,3 +94,24 @@ Route::group(['prefix' => 'newsSubscriber'], function () {
 Route::group(['prefix' => 'jobapplications'], function () {
     Route::post('/store', [JobApplicationController::class, 'store']);
 });
+
+//Get all notice
+Route::group(['prefix'=>'notices'], function (){
+    Route::get('allnotice', [NoticeController::class,'index']);
+});
+
+
+// Get all active posts
+Route::group(['prefix'=>'posts'], function (){
+    Route::get('/activeposts', [PostController::class,'activeposts']);
+});
+
+// Get all active services
+Route::group(['prefix'=>'services'], function (){
+    Route::get('/activeservices', [ServiceController::class,'activeservices']);
+});
+// Get all active projects
+Route::group(['prefix'=>'projects'], function (){
+    Route::get('/activeprojects', [ProjectController::class,'activeprojects']);
+});
+//

@@ -31,6 +31,12 @@ class PostController extends Controller
         }
     }
 
+    public function activeposts()
+    {
+        $posts = Post::where('status', 2)->get();
+        return response()->json(['data' => $posts], 200);
+    }
+
     // mypost
     public function myposts()
     {

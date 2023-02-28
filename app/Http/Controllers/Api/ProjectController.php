@@ -28,6 +28,12 @@ class ProjectController extends Controller
         return response()->json(['message' => 'This is all projects you have.', 'data' => $projects], 200);
     }
 
+    public function activeprojects()
+    {
+        $projects = Project::where('status', 1)->get();
+        return response()->json(['data' => $projects], 200);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -182,7 +188,7 @@ class ProjectController extends Controller
         }
 
         if ($request->file('cover')) {
-            
+
             $file = $request->file('cover');
             $filefullname = time().'.'.$file->getClientOriginalExtension();
             $upload_path = 'imges/uploads/project/';

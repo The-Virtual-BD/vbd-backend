@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         try {
             $subscriptions = Subscription::all();
             return response()->json(['data' => $subscriptions], 200);
@@ -23,7 +24,8 @@ class SubscriptionController extends Controller
     }
 
     // Subscription Application
-    public function store(Request $request, $id) {
+    public function store(Request $request, $id)
+    {
 
         $user = User::find($id);
 
@@ -31,7 +33,7 @@ class SubscriptionController extends Controller
             'service_id' => 'required|string',
             'subject' => 'required|string',
             'description' => 'required|string',
-            'attachment' => 'nullable|mimes:jpg,jpeg,png,doc,docx,pdf,svg,zip,rar',
+            'attachment' => 'nullable',
             'schedule' => 'required',
         ]);
 
@@ -44,20 +46,21 @@ class SubscriptionController extends Controller
 
         if ($request->file('attachment')) {
             $file = $request->file('attachment');
-            $filefullname = time().'.'.$file->getClientOriginalExtension();
+            $filefullname = time() . '.' . $file->getClientOriginalExtension();
             $upload_path = 'files/subscriptions/documents/';
-            $fileurl = $upload_path.$filefullname;
+            $fileurl = $upload_path . $filefullname;
             $success = $file->move($upload_path, $filefullname);
             $subscription->attachment = $fileurl;
         }
 
         $subscription->save();
-        return response()->json([ 'message' => 'Applied for subscription. We will contac you soon.' ], 200);
+        return response()->json(['message' => 'Applied for subscription. We will contac you soon.'], 200);
     }
 
-    public function show(Subscription $subscription) {
+    public function show(Subscription $subscription)
+    {
         try {
-            return response()->json(['message' => 'This is your desired subscripteion','data' => $subscription], 200);
+            return response()->json(['message' => 'This is your desired subscripteion', 'data' => $subscription], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => $e->getMessage()
@@ -65,7 +68,8 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function update(Request $request, Subscription $subscription) {
+    public function update(Request $request, Subscription $subscription)
+    {
         try {
             // Update subscription
             $subscription->update([
@@ -96,9 +100,10 @@ class SubscriptionController extends Controller
     }
 
 
-    public function destroy(Subscription $subscription) {
+    public function destroy(Subscription $subscription)
+    {
         try {
-            if($subscription->cover) {
+            if ($subscription->cover) {
                 unlink($subscription->cover);
             }
             $subscription->delete();

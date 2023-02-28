@@ -26,32 +26,38 @@ class SubscriptionController extends Controller
     // Subscription Application
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'service_id' => 'required|string',
-            'subject' => 'required|string',
-            'description' => 'required|string',
-            'attachment' => 'nullable',
-            'schedule' => 'required',
-        ]);
+        try {
+            $validated = $request->validate([
+                'service_id' => 'required|string',
+                'subject' => 'required|string',
+                'description' => 'required|string',
+                'attachment' => 'nullable',
+                'schedule' => 'required',
+            ]);
 
-        $subscription = new Subscription();
-        $subscription->user_id = auth('sanctum')->user()->id;
-        $subscription->service_id = $request->service_id;
-        $subscription->subject = $request->subject;
-        $subscription->description = $request->description;
-        $subscription->schedule = $request->schedule;
+            $subscription = new Subscription();
+            $subscription->user_id = auth('sanctum')->user()->id;
+            $subscription->service_id = $request->service_id;
+            $subscription->subject = $request->subject;
+            $subscription->description = $request->description;
+            $subscription->schedule = $request->schedule;
 
-        if ($request->file('attachment')) {
-            $file = $request->file('attachment');
-            $filefullname = time() . '.' . $file->getClientOriginalExtension();
-            $upload_path = 'files/subscriptions/documents/';
-            $fileurl = $upload_path . $filefullname;
-            $success = $file->move($upload_path, $filefullname);
-            $subscription->attachment = $fileurl;
+            if ($request->file('attachment')) {
+                $file = $request->file('attachment');
+                $filefullname = time() . '.' . $file->getClientOriginalExtension();
+                $upload_path = 'files/subscriptions/documents/';
+                $fileurl = $upload_path . $filefullname;
+                $success = $file->move($upload_path, $filefullname);
+                $subscription->attachment = $fileurl;
+            }
+
+            $subscription->save();
+            return response()->json(['message' => 'Applied for subscription. We will contac you soon.'], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ]);
         }
-
-        $subscription->save();
-        return response()->json(['message' => 'Applied for subscription. We will contac you soon.'], 200);
     }
 
     public function show(Subscription $subscription)

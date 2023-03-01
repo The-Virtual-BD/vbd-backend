@@ -145,6 +145,7 @@ class QuaryController extends Controller
     {
         try {
             $quary = Quary::findOrFail($id);
+            $quary->delete();
             return response()->json(['message' => 'Querry deletted!'], 200);
         } catch (\Throwable $e) {
             return response()->json([

@@ -165,4 +165,12 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::get('/{application}', [JobApplicationController::class, 'show']);
         Route::delete('/destroy/{application}', [JobApplicationController::class, 'destroy']);
     });
+
+    // Quary route
+    Route::group(['prefix'=>'queries'], function (){
+        Route::get('/', [QuaryController::class,'index']);
+        Route::get('/{quary}', [QuaryController::class,'show']);
+        Route::post('/replay/{quary}', [QuaryController::class,'replay']);
+        Route::delete('/destroy/{quary}', [QuaryController::class,'destroy']);
+    });
 });

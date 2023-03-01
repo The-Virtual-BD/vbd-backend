@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\NoticeController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Api\NewsSubscriberController;
 use App\Http\Controllers\Api\JobApplicationController;
+use App\Http\Controllers\Api\QuaryController;
 use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
 
 // Authentication route
@@ -114,5 +115,11 @@ Route::group(['prefix'=>'services'], function (){
 // Get all active projects
 Route::group(['prefix'=>'projects'], function (){
     Route::get('/activeprojects', [ProjectController::class,'activeprojects']);
+});
+
+
+// Quary route
+Route::group(['prefix'=>'queries'], function (){
+    Route::post('/store', [QuaryController::class,'store']);
 });
 //

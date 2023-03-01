@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('quaries', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
+            $table->longText('message');
+            $table->tinyInteger('status')->default(1)->comment('1 => unreaded, 2 => readed, 3=> replied');
+
             $table->timestamps();
         });
     }

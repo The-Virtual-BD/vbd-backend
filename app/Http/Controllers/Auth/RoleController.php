@@ -14,10 +14,9 @@ class RoleController extends Controller
         try {
             $roles = Role::orderBy('id','DESC')->get();
             return response()->json([
-                'status' => true,
                 'roles' => $roles
             ], 200);
-            
+
         } catch (\Throwable $e) {
             return response()->json([
                 'error' => $e->getMessage()
@@ -47,7 +46,7 @@ class RoleController extends Controller
                 'name' => 'required|unique:roles,name',
                 'permissions' => 'required',
             ]);
-    
+
             $role = Role::create(['name' => $request->name]);
             $role->syncPermissions($request->permissions);
 
@@ -72,7 +71,7 @@ class RoleController extends Controller
                 'name' => 'required',
                 'permissions' => 'required',
             ]);
-    
+
             $role->update(['name' => $request->name]);
             $role->syncPermissions($request->permissions);
 

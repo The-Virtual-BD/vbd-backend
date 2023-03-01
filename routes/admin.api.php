@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\PermissionController as ApiPermissionController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\VaccancyController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Api\QuaryController;
 
 /*
 |--------------------------------------------------------------------------

@@ -12,6 +12,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\NoticeController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Api\NewsSubscriberController;
+use App\Http\Controllers\Api\JobApplicationController;
 use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
 
 // Authentication route

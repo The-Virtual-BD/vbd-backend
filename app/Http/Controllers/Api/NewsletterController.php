@@ -81,7 +81,7 @@ class NewsletterController extends Controller
     {
         try {
             $newsletter = Newsletter::findOrFail($id);
-            return response()->json(['message' => 'Newsletter Sent'], 200);
+            return response()->json(['data' => $newsletter], 200);
         } catch (\Throwable $e) {
             return response()->json(['error' => $e->getMessage()]); //If anything wrong response the error message
         }

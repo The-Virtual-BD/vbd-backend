@@ -26,6 +26,17 @@ class VaccancyController extends Controller
         }
     }
 
+
+    public function activevaccancies()
+    {
+        try {
+            $vaccancies = Vaccancy::where('status', 1)->get();
+            return response()->json(['data' => $vaccancies], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

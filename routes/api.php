@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\NewsSubscriberController;
 use App\Http\Controllers\Api\JobApplicationController;
 use App\Http\Controllers\Api\QuaryController;
+use App\Http\Controllers\Api\VaccancyController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 // Authentication route
@@ -123,5 +124,10 @@ Route::group(['prefix' => 'projects'], function () {
 // Quary route
 Route::group(['prefix' => 'queries'], function () {
     Route::post('/store', [QuaryController::class, 'store']);
+});
+
+// Quary route
+Route::group(['prefix' => 'vaccancies'], function () {
+    Route::get('/activevaccancies', [VaccancyController::class, 'activevaccancies']);
 });
 //

@@ -85,9 +85,14 @@ class JobApplicationController extends Controller
      * @param  \App\Models\JobApplication  $jobApplication
      * @return \Illuminate\Http\Response
      */
-    public function show(JobApplication $jobApplication)
+    public function show( $id)
     {
-        //
+        try {
+            $jobApplication = JobApplication::findOrFail($id);
+            return response()->json(['data' => $jobApplication], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()]); //If anything wrong response the error message
+        }
     }
 
     /**
@@ -98,7 +103,7 @@ class JobApplicationController extends Controller
      */
     public function edit(JobApplication $jobApplication)
     {
-        //
+
     }
 
     /**

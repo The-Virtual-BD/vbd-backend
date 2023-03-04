@@ -129,5 +129,6 @@ Route::group(['prefix' => 'queries'], function () {
 // Quary route
 Route::group(['prefix' => 'vaccancies'], function () {
     Route::get('/activevaccancies', [VaccancyController::class, 'activevaccancies']);
+    Route::get('/{vacancy}', [VaccancyController::class, 'show']);
 });
 //

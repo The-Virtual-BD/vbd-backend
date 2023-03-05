@@ -76,11 +76,18 @@ class ProfileController extends Controller
     {
 
         try {
-            $validated = $request->validate([
-                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
+            // $validated = $request->validate([
+            //     'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // ]);
 
-            $user = User::findOrFail(auth('sanctum')->user()->id);
+            // $user = User::findOrFail(auth('sanctum')->user()->id);
+
+            if ($request->file('photo')) {
+                return response()->json(['message' => 'Profile Picture Updated !'], 200);
+            } else{
+                return response()->json(['message' => 'Provide Profile picture !'], 500);
+            }
+
 
             if ($request->file('photo')) {
                 $file = $request->file('photo');

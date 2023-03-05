@@ -78,6 +78,13 @@ class ProfileController extends Controller
         try {
             $user = User::findOrFail(auth('sanctum')->user()->id);
 
+            if (!$request->file('photo')) {
+
+                return response()->json(['message' => 'Please provide photo'], 200);
+            }
+
+
+
             if ($request->file('photo')) {
                 $file = $request->file('photo');
                 $filefullname = time().'.'.$file->getClientOriginalExtension();

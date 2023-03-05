@@ -77,6 +77,7 @@ class ProfileController extends Controller
 
         try {
             $user = User::findOrFail(auth('sanctum')->user()->id);
+
             if ($request->file('photo')) {
                 $file = $request->file('photo');
                 $filefullname = time().'.'.$file->getClientOriginalExtension();
@@ -85,7 +86,7 @@ class ProfileController extends Controller
                 $success = $file->move($upload_path, $filefullname);
                 $user->photo = $fileurl;
                 $user->save();
-                return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !', ], 200);
+                return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !'], 200);
             }
 
             // If profile updated successfully

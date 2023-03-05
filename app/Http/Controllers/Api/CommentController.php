@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -44,8 +45,14 @@ class CommentController extends Controller
      * @param  \App\Http\Requests\StoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCommentRequest $request)
+    public function store(Request $request)
     {
+        $validated = $request->validate([
+            'post_id' => 'required|string',
+            'body' => 'required|string',
+        ]);
+
+
         $comment = Comment::create([
             'user_id' => auth('sanctum')->user()->id,
             'commenter_name' => auth('sanctum')->user()->first_name,
@@ -90,7 +97,7 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(Request $request, Comment $comment)
     {
         $comment->body = $request->body;
         $comment->update();

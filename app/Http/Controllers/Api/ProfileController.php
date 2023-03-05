@@ -84,11 +84,11 @@ class ProfileController extends Controller
                 $fileurl = $upload_path.$filefullname;
                 $success = $file->move($upload_path, $filefullname);
                 $user->photo = $fileurl;
+                $user->save();
+                return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !', ], 200);
             }
-            $user->save();
 
             // If profile updated successfully
-            return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !', ], 200);
         } catch (\Throwable $e) {
             return response()->json(['error' => $e->getMessage()]);
         }

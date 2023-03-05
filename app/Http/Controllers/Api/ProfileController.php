@@ -23,7 +23,7 @@ class ProfileController extends Controller
             // $fileurl = $upload_path.$filefullname;
             // $success = $file->move($upload_path, $filefullname);
             // $user->photo = $fileurl;
-            return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !', ], 200);
+            return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !',], 200);
         }
 
         $validated = $request->validate([
@@ -32,7 +32,7 @@ class ProfileController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'birth_date' => 'required',
             'profession' => 'required',
-            'phone' => 'required|numeric|unique:users,phone,'. $user->id,
+            'phone' => 'required|numeric|unique:users,phone,' . $user->id,
             'nationality' => 'required',
             'bio' => 'nullable|string',
         ]);
@@ -76,24 +76,20 @@ class ProfileController extends Controller
     {
 
         try {
-            // $validated = $request->validate([
-            //     'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // ]);
+            $validated = $request->validate([
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
 
-            // $user = User::findOrFail(auth('sanctum')->user()->id);
+            $user = User::findOrFail(auth('sanctum')->user()->id);
 
-            if ($request->file('photo')) {
-                return response()->json(['message' => 'Profile Picture Updated !'], 200);
-            } else{
-                return response()->json(['message' => 'Provide Profile picture !'], 500);
-            }
+
 
 
             if ($request->file('photo')) {
                 $file = $request->file('photo');
-                $filefullname = time().'.'.$file->getClientOriginalExtension();
+                $filefullname = time() . '.' . $file->getClientOriginalExtension();
                 $upload_path = 'files/profilepic/';
-                $fileurl = $upload_path.$filefullname;
+                $fileurl = $upload_path . $filefullname;
                 $success = $file->move($upload_path, $filefullname);
                 $user->photo = $fileurl;
                 $user->save();
@@ -104,12 +100,12 @@ class ProfileController extends Controller
         } catch (\Throwable $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
-
     }
 
 
     // Password Update
-    public function passwordup(Request $request){
+    public function passwordup(Request $request)
+    {
 
         try {
             $request->validate([

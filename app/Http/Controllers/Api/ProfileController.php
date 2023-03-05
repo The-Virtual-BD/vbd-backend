@@ -76,14 +76,11 @@ class ProfileController extends Controller
     {
 
         try {
+            $validated = $request->validate([
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
             $user = User::findOrFail(auth('sanctum')->user()->id);
-
-            if (!$request->file('photo')) {
-
-                return response()->json(['message' => 'Please provide photo'], 200);
-            }
-
-
 
             if ($request->file('photo')) {
                 $file = $request->file('photo');

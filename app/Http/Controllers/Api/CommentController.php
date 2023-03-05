@@ -45,12 +45,12 @@ class CommentController extends Controller
      * @param  \App\Http\Requests\StoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCommentRequest $request)
     {
-        $validated = $request->validate([
-            'post_id' => 'required|string',
-            'body' => 'required|string',
-        ]);
+        // $validated = $request->validate([
+        //     'post_id' => 'required|string',
+        //     'body' => 'required|string',
+        // ]);
 
 
         $comment = Comment::create([

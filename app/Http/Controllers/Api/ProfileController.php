@@ -85,7 +85,7 @@ class ProfileController extends Controller
                 $success = $file->move($upload_path, $filefullname);
                 $user->photo = $fileurl;
             }
-            $user->update();
+            $user->save();
 
             // If profile updated successfully
             return response()->json(['user' => $user, 'message' => 'Profile Picture Updated !', ], 200);

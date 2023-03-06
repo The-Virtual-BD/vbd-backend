@@ -28,13 +28,12 @@ class BloggerController extends Controller
         $blogger = Blogger::create([
             'user_id' => $user->id,
             'name' => $request->name,
-            'subject'=>$request->subject,
-            'expertise'=>$request->expertise,
-            'description'=>$request->description,
+            'subject' => $request->subject,
+            'expertise' => $request->expertise,
+            'description' => $request->description,
         ]);
 
         return response()->json(['message' => 'Your Applications has been Submitted.'], 200);
-
     }
 
     public function show(Blogger $blogger)
@@ -61,6 +60,21 @@ class BloggerController extends Controller
             return response()->json([
                 'error' => $e->getMessage()
             ], 500);
+        }
+    }
+
+
+    public function mypendingapplication()
+    {
+        try {
+            $mypendingapplication = Blogger::where('user_id', auth('sanctum')->user()->id)->where('status', 1)->first();
+            if ($mypendingapplication) {
+                return response()->json(['pending' =>  true], 200);
+            } else {
+                return response()->json(['pending' =>  false], 200);
+            }
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
         }
     }
 

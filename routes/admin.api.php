@@ -149,6 +149,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::get('/', [NewsSubscriberController::class, 'index']);
         Route::post('/store', [NewsSubscriberController::class, 'store']);
         Route::put('/update/{subscriber}', [NewsSubscriberController::class, 'update']);
+        Route::put('/toggle/{subscriber}', [NewsSubscriberController::class, 'toggle']);
         Route::delete('/destroy/{subscriber}', [NewsSubscriberController::class, 'destroy']);
     });
 

@@ -12,6 +12,7 @@ class Newsletter extends Model
         'text',
         'image',
         'link',
+        'subject',
         'status',
     ];
 }

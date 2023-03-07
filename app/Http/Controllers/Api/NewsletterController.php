@@ -45,6 +45,7 @@ class NewsletterController extends Controller
     {
         $validated = $request->validate([
             'text' => 'required',
+            'subject' => 'required',
             'image' => 'nullable',
             'link' => 'nullable'
         ]);
@@ -53,6 +54,7 @@ class NewsletterController extends Controller
         try {
             $newsletter = new Newsletter();
             $newsletter->text = $request->text;
+            $newsletter->subject = $request->subject;
             if ($request->link) {
                 $newsletter->link = $request->link;
             }
@@ -127,6 +129,7 @@ class NewsletterController extends Controller
     {
         $validated = $request->validate([
             'text' => 'required',
+            'subject' => 'required',
             'image' => 'nullable',
             'link' => 'nullable'
         ]);
@@ -136,6 +139,7 @@ class NewsletterController extends Controller
         try {
             $newsletter = Newsletter::findOrFail($id);
             $newsletter->text = $request->text;
+            $newsletter->subject = $request->subject;
             if ($request->link) {
                 $newsletter->link = $request->link;
             }

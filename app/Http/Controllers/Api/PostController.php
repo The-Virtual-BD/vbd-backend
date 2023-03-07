@@ -22,8 +22,7 @@ class PostController extends Controller
         try {
             $posts = Post::all();
 
-            return response()->json([ 'message' => 'This is all possst we have.', 'data' => $posts ], 200);
-
+            return response()->json(['message' => 'This is all possst we have.', 'data' => $posts], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => $e->getMessage()
@@ -41,10 +40,9 @@ class PostController extends Controller
     public function myposts()
     {
         try {
-            $posts = Post::where('user_id',auth('sanctum')->user()->id)->get();
+            $posts = Post::where('user_id', auth('sanctum')->user()->id)->get();
 
-            return response()->json(['data' => $posts ], 200);
-
+            return response()->json(['data' => $posts], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => $e->getMessage()
@@ -86,9 +84,9 @@ class PostController extends Controller
 
         if ($request->file('cover')) {
             $file = $request->file('cover');
-            $filefullname = time().'.'.$file->getClientOriginalExtension();
+            $filefullname = time() . '.' . $file->getClientOriginalExtension();
             $upload_path = 'imges/uploads/post/';
-            $fileurl = $upload_path.$filefullname;
+            $fileurl = $upload_path . $filefullname;
             $success = $file->move($upload_path, $filefullname);
             $post->cover = $fileurl;
         }
@@ -109,8 +107,7 @@ class PostController extends Controller
 
 
 
-        return response()->json([ 'message' => 'Post saved. It will Publish soon.' ], 200);
-
+        return response()->json(['message' => 'Post saved. It will Publish soon.'], 200);
     }
 
     /**
@@ -121,9 +118,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
-        return response()->json(['data' => $post ], 200);
-
+        $post = Post::with('author', 'category', 'comments')->findOrFail($id);
+        return response()->json(['data' => $post], 200);
     }
 
     /**
@@ -147,7 +143,6 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         return response()->json(['message' => 'Post Update successfylly !'], 200);
-
     }
 
     public function approve(Post $post)
@@ -155,7 +150,13 @@ class PostController extends Controller
         $post->status = 2;
         $post->update();
         return response()->json(['message' => 'Post approved and published !'], 200);
+    }
 
+    public function decline($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->status = 3;
+        return response()->json(['message' => 'Post declined !'], 200);
     }
 
     /**
@@ -166,7 +167,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if($post->cover) {
+        if ($post->cover) {
             unlink($post->cover);
         }
         $post->delete();

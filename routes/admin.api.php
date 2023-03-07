@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::get('/{subscription}', [SubscriptionController::class, 'show']);
         Route::put('/update/{subscription}', [SubscriptionController::class, 'update']);
         Route::put('/approve/{subscription}', [SubscriptionController::class, 'approve']);
+        Route::put('/decline/{subscription}', [SubscriptionController::class, 'decline']);
         Route::delete('/destroy/{subscription}', [SubscriptionController::class, 'destroy']);
     });
 
@@ -102,6 +103,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::get('/', [BloggerController::class, 'index']);
         Route::get('/{blogger}', [BloggerController::class, 'show']);
         Route::put('/approve/{blogger}', [BloggerController::class, 'approve']);
+        Route::put('/decline/{blogger}', [BloggerController::class, 'decline']);
         Route::delete('/destroy/{blogger}', [BloggerController::class, 'destroy']);
     });
 
@@ -120,6 +122,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::get('/', [CommentController::class, 'index']);
         Route::get('/show/{comment}', [CommentController::class, 'show']);
         Route::put('/approve/{comment}', [CommentController::class, 'approve']);
+        Route::put('/decline/{comment}', [CommentController::class, 'decline']);
         Route::delete('/destroy/{comment}', [CommentController::class, 'destroy']);
     });
 

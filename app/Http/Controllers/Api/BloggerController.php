@@ -64,6 +64,20 @@ class BloggerController extends Controller
     }
 
 
+    public function decline(Blogger $blogger)
+    {
+        try {
+            $blogger->status = 3;
+            $blogger->update();
+            return response()->json(['message' =>  'Request declined !'], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
     public function mypendingapplication()
     {
         try {
@@ -92,4 +106,8 @@ class BloggerController extends Controller
             ], 500);
         }
     }
+
+
 }
+
+//

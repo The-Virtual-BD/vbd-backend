@@ -17,4 +17,10 @@ class Comment extends Model
         'commenter_email',
         'body',
     ];
+
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }

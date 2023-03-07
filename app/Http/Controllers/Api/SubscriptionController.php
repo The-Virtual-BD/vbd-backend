@@ -101,6 +101,18 @@ class SubscriptionController extends Controller
             ], 500);
         }
     }
+    public function decline(Subscription $subscription)
+    {
+        try {
+            $subscription->status = 4;
+            $subscription->update();
+            return response()->json(['message' =>  'Subscription request delined !'], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 
     public function destroy(Subscription $subscription)

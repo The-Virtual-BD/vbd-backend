@@ -99,6 +99,28 @@ class NewsSubscriberController extends Controller
         }
     }
 
+
+
+    public function toggle($id)
+    {
+        try {
+            $subscriber = NewsSubscriber::findOrFail($id);
+
+            if ($subscriber->status == 1) {
+                $subscriber->update(['status' => 2]);
+
+            } else {
+                $subscriber->update(['status' => 1]);
+
+            }
+
+            return response()->json(['message' => 'Subscriber ' . (($subscriber->status == 1 ? 'activated' : 'de-activated')) . ' successfully !'], 200);
+            //code...
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()]); //If anything wrong response the error message
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -74,7 +74,7 @@ class CommentController extends Controller
      */
     public function show( $id)
     {
-        $comment = Comment::findOrFail($id);
+        $comment = Comment::with('post')->findOrFail($id);
         return response()->json([ 'data' => $comment ], 200);
 
     }
@@ -109,6 +109,13 @@ class CommentController extends Controller
         $comment->status = 2;
         $comment->update();
         return response()->json(['message' => 'Comment approved and published !'], 200);
+    }
+
+    public function decline(Comment $comment)
+    {
+        $comment->status = 3;
+        $comment->update();
+        return response()->json(['message' => 'Comment declined !'], 200);
     }
 
     /**

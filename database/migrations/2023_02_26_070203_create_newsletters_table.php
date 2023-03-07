@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('newsletters', function (Blueprint $table) {
             $table->id();
             $table->longText('text');
+            $table->string('subject');
             $table->string('image')->nullable();
             $table->string('link')->nullable();
-            $table->tinyInteger('status')->default(1)->comment('1 => Unsend, 2 => Sent');
+            $table->tinyInteger('status')->default(1)->comment('1 => Unsend, 2 => Read, 3 => Sent');
             $table->timestamps();
         });
     }

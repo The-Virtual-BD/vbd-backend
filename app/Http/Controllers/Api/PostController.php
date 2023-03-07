@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         try {
-            $posts = Post::all();
+            $posts = Post::with(['author', 'category', 'comments'])->get();
 
             return response()->json(['message' => 'This is all possst we have.', 'data' => $posts], 200);
         } catch (\Throwable $e) {

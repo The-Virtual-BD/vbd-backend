@@ -32,7 +32,7 @@ class PostController extends Controller
 
     public function activeposts()
     {
-        $posts = Post::where('status', 2)->get();
+        $posts = Post::with(['author', 'category', 'comments'])->where('status', 2)->get();
         return response()->json(['data' => $posts], 200);
     }
 
@@ -118,7 +118,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::with('author', 'category', 'comments')->findOrFail($id);
+        $post = Post::with(['author', 'category', 'comments'])->findOrFail($id);
         return response()->json(['data' => $post], 200);
     }
 

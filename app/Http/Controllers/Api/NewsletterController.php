@@ -6,7 +6,10 @@ use App\Models\Newsletter;
 use App\Http\Requests\StoreNewsletterRequest;
 use App\Http\Requests\UpdateNewsletterRequest;
 use App\Http\Controllers\Controller;
+use App\Mail\NewsletterMail;
+use App\Models\NewsSubscriber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class NewsletterController extends Controller
 {
@@ -98,13 +101,26 @@ class NewsletterController extends Controller
     public function send($id)
     {
         try {
-            // Need to send newsletter mail
-            $newsletter = Newsletter::findOrFail($id);
-            return response()->json(['data' => $newsletter], 200);
-            return response()->json(['message' => 'Newsletter Send'], 200);
+            $newsletter = Newsletter::find($id);
+            $newsletterSubscriber = NewsSubscriber::where('status',1)->get('email','id');
+
+            foreach ($newsletterSubscriber as $subscriber) {
+                try{
+                $sendmail =    Mail::to($subscriber->email)->send(new NewsletterMail($newsletter));
+                if ($sendmail) {
+                    $newsletter->status = 2;
+                    $newsletter->update();
+                }
+                }catch (\Exception $exception){}
+            }
+
+            return response()->json([ 'message' => 'Newsletter Sent successfylly !'], 200);
         } catch (\Throwable $e) {
             return response()->json(['error' => $e->getMessage()]); //If anything wrong response the error message
         }
+
+
+
     }
 
     /**

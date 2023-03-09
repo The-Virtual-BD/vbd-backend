@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained("users")->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('project_id')->nullable()->constrained("projects")->onUpdate('cascade')->onDelete('cascade');
-            $table->string('quantity');
+            $table->foreignId('subscription_id')->constrained("subscriptions")->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('quantity')->default(5);
             $table->longText('body');
             $table->integer('status')->default(1)->comment('1 => pending, 2 => confirmed, 2 => cancelled');
             $table->timestamps();

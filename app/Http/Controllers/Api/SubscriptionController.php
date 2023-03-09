@@ -4,17 +4,22 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubscriptionRequest;
+use App\Mail\SubscriptionApprove;
+use App\Mail\SubscriptionComplete;
+use App\Mail\SubscriptionCreate;
+use App\Mail\SubscriptionReject;
 use App\Models\Subscription;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class SubscriptionController extends Controller
 {
     public function index()
     {
         try {
-            $subscriptions = Subscription::all();
+            $subscriptions = Subscription::with(['applicant', 'service'])->get();
             return response()->json(['data' => $subscriptions], 200);
         } catch (\Throwable $e) {
             return response()->json([
@@ -52,7 +57,16 @@ class SubscriptionController extends Controller
             }
 
             $subscription->save();
-            return response()->json(['message' => 'Applied for subscription. We will contac you soon.'], 200);
+
+            $message = 'Your application for subscription on review . We will contac with you soon.';
+
+            try{
+                $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new SubscriptionCreate($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
+
+            return response()->json(['message' => $message], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => $e->getMessage()
@@ -60,10 +74,11 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function show(Subscription $subscription)
+    public function show($id)
     {
         try {
-            return response()->json(['message' => 'This is your desired subscripteion', 'data' => $subscription], 200);
+            $subscription = Subscription::with(['applicant', 'service','chats'])->findOrFail($id);
+            return response()->json(['data' => $subscription], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => $e->getMessage()
@@ -94,19 +109,14 @@ class SubscriptionController extends Controller
         try {
             $subscription->status = 3;
             $subscription->update();
-            return response()->json(['message' =>  'Subscription accepted !'], 200);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-    public function decline(Subscription $subscription)
-    {
-        try {
-            $subscription->status = 4;
-            $subscription->update();
-            return response()->json(['message' =>  'Subscription request delined !'], 200);
+            $message = 'Your application for subscription is accepted.';
+
+            try{
+                $sendmail = Mail::to($subscription->applicant->email)->send(new SubscriptionApprove($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
+            return response()->json(['message' =>  $message], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'error' => $e->getMessage()
@@ -114,6 +124,48 @@ class SubscriptionController extends Controller
         }
     }
 
+    public function decline(Subscription $subscription)
+    {
+        try {
+            $subscription->status = 4;
+            $subscription->update();
+
+            $message = 'Your application for subscription is declined.';
+
+            try{
+                $sendmail = Mail::to($subscription->applicant->email)->send(new SubscriptionReject($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
+            return response()->json(['message' =>  $message], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function complete(Subscription $subscription)
+    {
+        try {
+            $subscription->status = 5;
+            $subscription->update();
+
+            $message = 'Your Project is copleted.';
+
+            try{
+                $sendmail = Mail::to($subscription->applicant->email)->send(new SubscriptionComplete($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
+            return response()->json(['message' =>  $message], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 
     public function destroy(Subscription $subscription)
     {

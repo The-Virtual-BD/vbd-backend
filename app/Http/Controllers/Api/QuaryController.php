@@ -6,7 +6,10 @@ use App\Models\Quary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreQuaryRequest;
 use App\Http\Requests\UpdateQuaryRequest;
+use App\Mail\QueryCreate;
+use App\Mail\QueryReplay;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class QuaryController extends Controller
 {
@@ -62,14 +65,17 @@ class QuaryController extends Controller
             $quary->message = $request->message;
             $quary->save();
 
+            // Sending email
+            $message = "Thanks for contacting us. We will get to you soon.";
+            try{
+            $sendmail = Mail::to($quary->email)->send(new QueryCreate($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
             //
-            // email sending code goes here
-            //
-            return response()->json(['message' => 'Thanks for contacting us. We will get to you soon.'], 200);
+            return response()->json(['message' => $message], 200);
         } catch (\Throwable $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ]);
+            return response()->json(['message' => $e->getMessage()]);
         }
     }
 
@@ -99,7 +105,13 @@ class QuaryController extends Controller
             $quary = Quary::findOrFail($id);
             $msg = $request->msg;
             //
-            // email sending code goes here
+            // Sending email
+            $message = $request->msg;
+            try{
+            $sendmail = Mail::to($quary->email)->send(new QueryReplay($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
             //
             $quary->status = 3;
             $quary->save();

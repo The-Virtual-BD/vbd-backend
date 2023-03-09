@@ -27,4 +27,8 @@ class Subscription extends Model
     {
         return $this->belongsTo(Service::class,'service_id');
     }
+    public function chats()
+    {
+        return $this->hasMany(SubChat::class);
+    }
 }

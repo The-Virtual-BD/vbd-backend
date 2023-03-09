@@ -31,7 +31,7 @@ class UserTableSeeder extends Seeder
             'status' => 2
         ]);
 
-        $role = Role::create(['name' => 'admin']);
+        $role = Role::where('name','admin')->first();
         $permissions = Permission::pluck('id','id')->all();
         $role->syncPermissions($permissions);
         $user->assignRole([$role->id]);

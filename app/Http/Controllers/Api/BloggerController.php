@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBloggerRequest;
+use App\Mail\BloggerApplicationApprove;
+use App\Mail\BloggerApplicationCreate;
+use App\Mail\BloggerApplicationReject;
 use App\Models\Blogger;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BloggerController extends Controller
 {
@@ -33,7 +37,16 @@ class BloggerController extends Controller
             'description' => $request->description,
         ]);
 
-        return response()->json(['message' => 'Your Applications has been Submitted.'], 200);
+
+        $message = 'Your applied as a blogger in The VirtualBD successfully.';
+
+        try{
+            $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new BloggerApplicationCreate($message));
+        }catch (\Throwable $e){
+            return response()->json(['message' => $e->getMessage()]);
+        }
+
+        return response()->json(['message' => $message], 200);
     }
 
     public function show(Blogger $blogger)
@@ -55,6 +68,15 @@ class BloggerController extends Controller
             $buser->update();
             $buser->assignRole('blogger');
             $blogger->delete();
+
+            $message = 'Your application as a blogger in The VirtualBD is approved.';
+
+            try{
+                $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new BloggerApplicationApprove($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
+
             return response()->json(['message' =>  'Request accepted !'], 200);
         } catch (\Throwable $e) {
             return response()->json([
@@ -69,6 +91,16 @@ class BloggerController extends Controller
         try {
             $blogger->status = 3;
             $blogger->update();
+
+
+            $message = 'Your application as a blogger in The VirtualBD is declined.';
+
+            try{
+                $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new BloggerApplicationReject($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
+
             return response()->json(['message' =>  'Request declined !'], 200);
         } catch (\Throwable $e) {
             return response()->json([

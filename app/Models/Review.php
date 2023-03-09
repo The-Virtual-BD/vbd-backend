@@ -11,9 +11,15 @@ class Review extends Model
 
     protected $fillable = [
         'user_id',
-        'project_id',
+        'subscription_id',
         'quantity',
         'body',
         'status'
     ];
+
+
+    public function author()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

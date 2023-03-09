@@ -6,9 +6,10 @@ use App\Models\JobApplication;
 use App\Http\Requests\StoreJobApplicationRequest;
 use App\Http\Requests\UpdateJobApplicationRequest;
 use App\Http\Controllers\Controller;
+use App\Mail\JobCreate;
 use App\Models\Vaccancy;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
 
 class JobApplicationController extends Controller
 {
@@ -73,6 +74,15 @@ class JobApplicationController extends Controller
                 $jobApplication->cv = $fileurl;
             }
             $jobApplication->save();
+
+            $message = 'Thanks for the application. We will contact with you soon.';
+
+            try{
+                $sendmail = Mail::to($jobApplication->applicant->email)->send(new JobCreate($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
+
             return response()->json(['message' => 'Applied!'], 200);
         } catch (\Throwable $e) {
             return response()->json(['error' => $e->getMessage()]); //If anything wrong response the error message

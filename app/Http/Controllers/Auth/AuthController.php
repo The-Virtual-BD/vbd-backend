@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\UserWelcome;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -39,6 +41,15 @@ class AuthController extends Controller
             ]);
 
             $user->assignRole('user');
+
+
+            $message = 'Welcome to the VirtualBD. Your account has been created.';
+
+            try{
+                $sendmail = Mail::to($user->email)->send(new UserWelcome($message));
+            }catch (\Throwable $e){
+                return response()->json(['message' => $e->getMessage()]);
+            }
 
             return response()->json([
                 'user' => $user,

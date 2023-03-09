@@ -7,8 +7,11 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\TemporaryFile;
 use App\Http\Controllers\Controller;
+use App\Mail\PostApprove;
+use App\Mail\PostCreate;
+use App\Mail\PostReject;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -106,6 +109,15 @@ class PostController extends Controller
         }
 
 
+        $message = 'Post saved. It will Publish soon.';
+
+        try{
+            $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new PostCreate($message));
+        }catch (\Throwable $e){
+            return response()->json(['message' => $e->getMessage()]);
+        }
+
+
 
         return response()->json(['message' => 'Post saved. It will Publish soon.'], 200);
     }
@@ -149,6 +161,15 @@ class PostController extends Controller
     {
         $post->status = 2;
         $post->update();
+
+        $message = 'Your post published';
+
+        try{
+            $sendmail = Mail::to($post->author->email)->send(new PostApprove($message));
+        }catch (\Throwable $e){
+            return response()->json(['message' => $e->getMessage()]);
+        }
+
         return response()->json(['message' => 'Post approved and published !'], 200);
     }
 
@@ -157,6 +178,15 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->status = 3;
         $post->update();
+
+
+        $message = 'Your post declined';
+
+        try{
+            $sendmail = Mail::to($post->author->email)->send(new PostReject($message));
+        }catch (\Throwable $e){
+            return response()->json(['message' => $e->getMessage()]);
+        }
         return response()->json(['message' => 'Post declined !'], 200);
     }
 

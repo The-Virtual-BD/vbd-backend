@@ -118,7 +118,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::with(['author', 'category', 'comments'])->findOrFail($id);
+        $post = Post::with('author', 'category', 'comments')->findOrFail($id);
         return response()->json(['data' => $post], 200);
     }
 

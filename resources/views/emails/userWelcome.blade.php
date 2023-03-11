@@ -213,7 +213,7 @@
         <tr style="background-color: #ffffff;">
             <td style="padding:20px;">
                 <div style="margin-bottom: 20px;">
-                    {{ $message }}
+                    <p>Welcome to the VirtualBD. Your account has been created.</p>
                 </div>
                 <center>
                     <a href="https://www.thevirtualbd.com" target="_blank"

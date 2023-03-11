@@ -10,7 +10,6 @@ use Illuminate\Queue\SerializesModels;
 class UserWelcome extends Mailable
 {
     use Queueable, SerializesModels;
-    public $message; // define the property
 
 
     /**
@@ -18,9 +17,8 @@ class UserWelcome extends Mailable
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct()
     {
-        $this->message = $message;
     }
 
     /**
@@ -30,8 +28,6 @@ class UserWelcome extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.userWelcome',[
-            'message' => $this->message,
-        ])->subject('Welcome to VirtualBD');
+        return $this->view('emails.userWelcome',)->subject('Welcome to VirtualBD');
     }
 }

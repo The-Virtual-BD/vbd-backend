@@ -11,6 +11,8 @@ class SubscriptionCreate extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $message; // define the property
+
     /**
      * Create a new message instance.
      *

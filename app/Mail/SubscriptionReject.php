@@ -10,6 +10,8 @@ use Illuminate\Queue\SerializesModels;
 class SubscriptionReject extends Mailable
 {
     use Queueable, SerializesModels;
+    public $message; // define the property
+
 
     /**
      * Create a new message instance.

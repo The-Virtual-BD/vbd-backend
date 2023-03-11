@@ -10,6 +10,8 @@ use Illuminate\Queue\SerializesModels;
 class NewsletterMail extends Mailable
 {
     use Queueable, SerializesModels;
+    public $newsletter; // define the property
+
 
     /**
      * Create a new message instance.

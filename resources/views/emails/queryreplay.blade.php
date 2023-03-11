@@ -182,7 +182,7 @@
             <tr style="background-color: #ffffff;">
                 <td style="padding:20px;">
                     <div style="margin-bottom: 20px;">
-                        {!!$message !!}
+                        {{ $message }}
                     </div>
                     <center>
                         <a href="https://www.thevirtualbd.com" target="_blank" style="display: inline-block; background-color: #3490dc; color: #fff; padding: 10px 20px; text-decoration: none;">Visit</a>

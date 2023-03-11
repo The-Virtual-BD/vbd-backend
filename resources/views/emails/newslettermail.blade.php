@@ -187,7 +187,7 @@
                     </div>
                     @endif
                     <div style="margin-bottom: 20px;">
-                        {!!$newsletter->text !!}
+                        {{ $newsletter->text }}
                     </div>
                     <center>
                         <a href="{{$newsletter->link ? $newsletter->link : 'https://www.thevirtualbd.com'}}" target="_blank" style="display: inline-block; background-color: #3490dc; color: #fff; padding: 10px 20px; text-decoration: none;">Visit</a>

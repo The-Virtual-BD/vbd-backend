@@ -45,8 +45,8 @@ class AuthController extends Controller
 
             $message = 'Welcome to the VirtualBD. Your account has been created.';
 
+            $sendmail = Mail::to($data['email'])->send(new UserWelcome());
             // try{
-            //     $sendmail = Mail::to($user->email)->send(new UserWelcome());
             // }catch (\Throwable $e){
             //     return response()->json(['message' => $e->getMessage()]);
             // }

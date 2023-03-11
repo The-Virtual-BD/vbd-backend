@@ -45,13 +45,19 @@ class NewsSubscriberController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|unique:news_subscribers,email',
+            'email' => 'required',
         ]);
 
 
         try {
-            $subscribe = NewsSubscriber::create(['email' => $request->email]);
-            return response()->json(['message' => 'Subscribe to newsletter successfully'], 200);
+            $exist = NewsSubscriber::where('email',$request->email)->get();
+            if ($exist->count() > 0) {
+                return response()->json(['message' => 'This email already subscribed'], 200);
+            }else{
+
+                $subscribe = NewsSubscriber::create(['email' => $request->email]);
+                return response()->json(['message' => 'Subscribe to newsletter successfully'], 200);
+            }
         } catch (\Throwable $e) {
             return response()->json(['error' => $e->getMessage()]); //If anything wrong response the error message
         }

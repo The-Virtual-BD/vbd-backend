@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Homecontroller;
+use App\Mail\UserWelcome;
 use App\Models\Newsletter;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,10 @@ Route::put('profileUpdate/{user}', [ProfileController::class,'update'])->name('p
 
 
 Route::group(['prefix' => 'email'], function () {
+    Route::get('/welcomemail',function ()
+    {
+        return (new UserWelcome())->render();
+    });
     Route::get('/newsletteremail',
         function ()
         {

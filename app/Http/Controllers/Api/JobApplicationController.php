@@ -78,7 +78,7 @@ class JobApplicationController extends Controller
             $message = 'Thanks for the application. We will contact with you soon.';
 
             try{
-                $sendmail = Mail::to($jobApplication->applicant->email)->send(new JobCreate($message));
+                $sendmail = Mail::to($jobApplication->email)->send(new JobCreate($message));
             }catch (\Throwable $e){
                 return response()->json(['message' => $e->getMessage()]);
             }

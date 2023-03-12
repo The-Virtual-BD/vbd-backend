@@ -81,6 +81,10 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::delete('/destroy/{subscription}', [SubscriptionController::class, 'destroy']);
     });
 
+    Route::group(['prefix' => 'subchat'], function(){
+        Route::post('/store',[SubChatController::class,'store']);
+    });
+
 
     // Media handeling
     Route::post('/tempUpload', [UploadController::class, 'tempUpload']);

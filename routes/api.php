@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\NewsSubscriberController;
 use App\Http\Controllers\Api\JobApplicationController;
 use App\Http\Controllers\Api\QuaryController;
+use App\Http\Controllers\Api\SubChatController;
 use App\Http\Controllers\Api\VaccancyController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 
@@ -88,6 +89,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Subscription routes
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::post('/store', [SubscriptionController::class, 'store']);
+    });
+
+    Route::group(['prefix' => 'subchat'], function(){
+        Route::post('/store',[SubChatController::class,'store']);
     });
 });
 

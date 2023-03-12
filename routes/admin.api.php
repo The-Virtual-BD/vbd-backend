@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\VaccancyController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\QuaryController;
+use App\Http\Controllers\Api\SubChatController;
 
 /*
 |--------------------------------------------------------------------------

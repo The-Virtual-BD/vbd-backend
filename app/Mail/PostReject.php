@@ -30,7 +30,7 @@ class PostReject extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.post.reject',[
+        return $this->markdown('emails.post.reject',[
             'message' => $this->message,
         ])->subject('Post declined');
     }

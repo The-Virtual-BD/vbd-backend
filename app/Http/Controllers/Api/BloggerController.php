@@ -42,9 +42,7 @@ class BloggerController extends Controller
 
         try{
             $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new BloggerApplicationCreate($message));
-        }catch (\Throwable $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
+        }catch (\Throwable $e){}
 
         return response()->json(['message' => $message], 200);
     }
@@ -73,11 +71,12 @@ class BloggerController extends Controller
 
             try{
                 $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new BloggerApplicationApprove($message));
-            }catch (\Throwable $e){
-                return response()->json(['message' => $e->getMessage()]);
-            }
+            }catch (\Throwable $e){}
 
             return response()->json(['message' =>  'Request accepted !'], 200);
+
+
+            
         } catch (\Throwable $e) {
             return response()->json([
                 'error' => $e->getMessage()
@@ -97,9 +96,7 @@ class BloggerController extends Controller
 
             try{
                 $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new BloggerApplicationReject($message));
-            }catch (\Throwable $e){
-                return response()->json(['message' => $e->getMessage()]);
-            }
+            }catch (\Throwable $e){}
 
             return response()->json(['message' =>  'Request declined !'], 200);
         } catch (\Throwable $e) {

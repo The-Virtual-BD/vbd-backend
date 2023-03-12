@@ -49,9 +49,7 @@ class ReviewController extends Controller
 
         try{
             $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new SubscriptionReview($message));
-        }catch (\Throwable $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
+        }catch (\Throwable $e){}
 
         return response()->json(['message' => 'Reviewed successfully!'], 200);
     }

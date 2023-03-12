@@ -30,7 +30,7 @@ class SubscriptionReview extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.subscription.review',[
+        return $this->markdown('emails.subscription.review',[
             'message' => $this->message,
         ])->subject('Thanks Form VirtualBD');
     }

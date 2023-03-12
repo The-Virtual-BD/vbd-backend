@@ -29,7 +29,7 @@ class PostApprove extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.post.publish',[
+        return $this->markdown('emails.post.publish',[
             'message' => $this->message,
         ])->subject('Post Published');
     }

@@ -113,9 +113,7 @@ class SubscriptionController extends Controller
 
             try{
                 $sendmail = Mail::to($subscription->applicant->email)->send(new SubscriptionApprove($message));
-            }catch (\Throwable $e){
-                return response()->json(['message' => $e->getMessage()]);
-            }
+            }catch (\Throwable $e){}
             return response()->json(['message' =>  $message], 200);
         } catch (\Throwable $e) {
             return response()->json([

@@ -166,9 +166,7 @@ class PostController extends Controller
 
         try{
             $sendmail = Mail::to($post->author->email)->send(new PostApprove($message));
-        }catch (\Throwable $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
+        }catch (\Throwable $e){}
 
         return response()->json(['message' => 'Post approved and published !'], 200);
     }
@@ -184,9 +182,7 @@ class PostController extends Controller
 
         try{
             $sendmail = Mail::to($post->author->email)->send(new PostReject($message));
-        }catch (\Throwable $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
+        }catch (\Throwable $e){}
         return response()->json(['message' => 'Post declined !'], 200);
     }
 

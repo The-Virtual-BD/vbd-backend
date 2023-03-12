@@ -30,7 +30,7 @@ class PostCreate extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.post.create',[
+        return $this->markdown('emails.post.create',[
             'message' => $this->message,
         ])->subject('Thanks from VirtualBD');
     }

@@ -30,7 +30,7 @@ class QueryCreate extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.querymail',[
+        return $this->markdown('emails.querymail',[
             'message' => $this->message,
         ])->subject('Thanks From VirtualBD');
     }

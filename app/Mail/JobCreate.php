@@ -30,7 +30,7 @@ class JobCreate extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.job.create',[
+        return $this->markdown('emails.job.create',[
             'message' => $this->message,
         ])->subject('Applying to VirtualBD');
     }

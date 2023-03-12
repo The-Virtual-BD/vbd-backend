@@ -111,10 +111,7 @@ class NewsletterController extends Controller
                     $newsletter->status = 2;
                     $newsletter->update();
                 }
-                }catch (\Throwable $e){
-                    return response()->json(['error' => $e->getMessage()]); //If anything wrong response the error message
-
-                }
+                }catch (\Throwable $e){}
             }
 
             return response()->json([ 'message' => 'Newsletter Sent successfylly !'], 200);

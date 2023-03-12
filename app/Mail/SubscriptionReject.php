@@ -30,7 +30,7 @@ class SubscriptionReject extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.subscription.reject',[
+        return $this->markdown('emails.subscription.reject',[
             'message' => $this->message,
         ])->subject('Subscribing to VirtualBD Service');
     }

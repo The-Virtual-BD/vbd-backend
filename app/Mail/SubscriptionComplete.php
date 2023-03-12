@@ -30,7 +30,7 @@ class SubscriptionComplete extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.subscription.complete',[
+        return $this->markdown('emails.subscription.complete',[
             'message' => $this->message,
         ])->subject('Subscribing to VirtualBD Service');
     }

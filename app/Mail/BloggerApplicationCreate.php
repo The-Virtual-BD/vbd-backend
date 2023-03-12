@@ -30,7 +30,7 @@ class BloggerApplicationCreate extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.blogger.create',[
+        return $this->markdown('emails.blogger.create',[
             'message' => $this->message,
         ])->subject('Applying to VirtualBD');
     }

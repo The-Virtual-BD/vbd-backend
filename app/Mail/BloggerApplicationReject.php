@@ -30,7 +30,7 @@ class BloggerApplicationReject extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.blogger.reject', [
+        return $this->markdown('emails.blogger.reject', [
             'message' => $this->message,
         ])->subject('Applying to VirtualBD');
     }

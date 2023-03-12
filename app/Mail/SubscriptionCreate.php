@@ -30,7 +30,7 @@ class SubscriptionCreate extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.subscription.create',[
+        return $this->markdown('emails.subscription.create',[
             'message' => $this->message,
         ])->subject('Subscribing to VirtualBD Service');
     }

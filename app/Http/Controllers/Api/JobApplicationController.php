@@ -79,9 +79,7 @@ class JobApplicationController extends Controller
 
             try{
                 $sendmail = Mail::to($jobApplication->email)->send(new JobCreate($message));
-            }catch (\Throwable $e){
-                return response()->json(['message' => $e->getMessage()]);
-            }
+            }catch (\Throwable $e){}
 
             return response()->json(['message' => 'Applied!'], 200);
         } catch (\Throwable $e) {

@@ -31,7 +31,7 @@ class QueryReplay extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.queryreplay',[
+        return $this->markdown('emails.queryreplay',[
             'message' => $this->message,
         ])->subject('Repaly From VirtualBD');
     }

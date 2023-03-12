@@ -30,7 +30,7 @@ class BloggerApplicationApprove extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.blogger.approve',[
+        return $this->markdown('emails.blogger.approve',[
             'message' => $this->message,
         ])->subject('Applying to VirtualBD');
     }

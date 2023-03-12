@@ -69,9 +69,7 @@ class QuaryController extends Controller
             $message = "Thanks for contacting us. We will get to you soon.";
             try{
             $sendmail = Mail::to($quary->email)->send(new QueryCreate($message));
-            }catch (\Throwable $e){
-                return response()->json(['message' => $e->getMessage()]);
-            }
+            }catch (\Throwable $e){}
             //
             return response()->json(['message' => $message], 200);
         } catch (\Throwable $e) {
@@ -109,9 +107,7 @@ class QuaryController extends Controller
             $message = $request->msg;
             try{
             $sendmail = Mail::to($quary->email)->send(new QueryReplay($message));
-            }catch (\Throwable $e){
-                return response()->json(['message' => $e->getMessage()]);
-            }
+            }catch (\Throwable $e){}
             //
             $quary->status = 3;
             $quary->save();

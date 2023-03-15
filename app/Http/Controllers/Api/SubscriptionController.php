@@ -28,6 +28,21 @@ class SubscriptionController extends Controller
         }
     }
 
+    // My subscriptions
+    public function mysubscriptions()
+    {
+
+        try {
+            $subscriptions = Subscription::where('user_id', auth('sanctum')->user()->id)->get();
+            return response()->json(['data' => $subscriptions], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ]);
+        }
+
+    }
+
     // Subscription Application
     public function store(Request $request)
     {

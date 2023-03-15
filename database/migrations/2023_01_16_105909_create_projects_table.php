@@ -16,21 +16,17 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('client_name')->nullable();
-            $table->foreignId('user_id')->nullable()->constrained("users")->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('service_id')->constrained("services")->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamp('starting_date')->nullable();
-            $table->timestamp('ending_date')->nullable();
-            $table->string('value')->nullable();
-            $table->string('value_paid')->nullable();
-            $table->string('value_payable')->nullable();
-            $table->string('documents')->nullable();
             $table->string('cover')->nullable();
-            $table->string('progress')->nullable();
-            $table->longText('description');
             $table->longText('short_description');
-            $table->integer('status')->default(1)->comment('1 => pending, 2 => confirmed, 2 => cancelled');
-            $table->integer('protfolio')->default(1)->comment('1 => no, 2 => yes');
+            $table->string('client_name')->nullable();
+            $table->string('client_type')->nullable();
+            $table->string('client_origin')->nullable();
+            $table->string('image_1')->nullable();
+            $table->string('image_2')->nullable();
+            $table->string('image_3')->nullable();
+            $table->longText('video')->nullable();
+            $table->longText('description');
+            $table->foreignId('service_id')->constrained("services")->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

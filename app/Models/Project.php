@@ -11,27 +11,19 @@ class Project extends Model
 
     protected $fillable = [
         'name',
-        'client_name',
-        'user_id',
-        'service_id',
-        'starting_date',
-        'ending_date',
-        'value',
-        'value_paid',
-        'value_payable',
-        'documents',
         'cover',
-        'description',
         'short_description',
-        'status',
-        'protfolio',
+        'client_name',
+        'client_type',
+        'client_origin',
+        'image_1',
+        'image_2',
+        'image_3',
+        'video',
+        'description',
+        'service_id'
     ];
 
-
-    protected $casts = [
-        'starting_date'  => 'date:d-M-Y',
-        'ending_date' => 'date:d-M-Y',
-    ];
 
     //12-jan-Y
 }

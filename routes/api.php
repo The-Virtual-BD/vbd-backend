@@ -85,6 +85,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::post('/store', [SubscriptionController::class, 'store']);
         Route::get('/mysubscriptions', [SubscriptionController::class, 'mysubscriptions']);
+        Route::get('/show/{subscription}', [SubscriptionController::class, 'show']);
     });
 
     Route::group(['prefix' => 'subchat'], function(){

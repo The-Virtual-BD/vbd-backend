@@ -118,6 +118,7 @@ Route::group(['prefix' => 'posts'], function () {
 Route::group(['prefix' => 'services'], function () {
     Route::get('/activeservices', [ServiceController::class, 'activeservices']);
 });
+
 // Get all active projects
 Route::group(['prefix' => 'projects'], function () {
     Route::get('/activeprojects', [ProjectController::class, 'activeprojects']);

@@ -24,6 +24,13 @@ class Project extends Model
         'service_id'
     ];
 
+    protected $with = ['service'];
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+
 
     //12-jan-Y
 }

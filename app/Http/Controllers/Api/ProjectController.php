@@ -26,7 +26,7 @@ class ProjectController extends Controller
 
     public function activeprojects()
     {
-        $projects = Project::where('status', 1)->get();
+        $projects = Project::all();
         return response()->json(['data' => $projects], 200);
     }
 

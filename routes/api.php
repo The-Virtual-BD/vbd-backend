@@ -55,12 +55,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
 
-    // Projects routes
-    Route::group(['prefix' => 'projects'], function () {
-        Route::get('/myprojects', [ProjectController::class, 'myproject']); // projects/myprojects --get
-        Route::get('/show/{project}', [ProjectController::class, 'show']); // projects/show/{project} --get
-        Route::post('/store', [ProjectController::class, 'store']);
-    });
+
 
     // Post Rout
     // 'middleware' => ['role:blogger']
@@ -89,6 +84,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Subscription routes
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::post('/store', [SubscriptionController::class, 'store']);
+        Route::get('/mysubscriptions', [SubscriptionController::class, 'mysubscriptions']);
     });
 
     Route::group(['prefix' => 'subchat'], function(){
@@ -125,7 +121,11 @@ Route::group(['prefix' => 'services'], function () {
 // Get all active projects
 Route::group(['prefix' => 'projects'], function () {
     Route::get('/activeprojects', [ProjectController::class, 'activeprojects']);
+    Route::get('/show/{project}', [ProjectController::class, 'show']); // projects/show/{project} --get
+
 });
+
+
 
 
 // Quary route

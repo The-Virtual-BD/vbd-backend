@@ -54,9 +54,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::delete('/destroy/{category}', [CategoryController::class, 'destroy']); // categories/destroy/{category} --post
     });
 
-
-
-
     // Post Rout
     // 'middleware' => ['role:blogger']
     Route::group(['prefix' => 'posts'], function () {
@@ -66,7 +63,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('/update/{post}', [PostController::class, 'update']);
         Route::delete('/destroy/{post}', [PostController::class, 'destroy']);
     });
-
 
     // Comments
     Route::group(['prefix' => 'comments'], function () {

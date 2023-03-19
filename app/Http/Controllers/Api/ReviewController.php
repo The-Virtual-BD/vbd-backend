@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateReviewRequest;
 use App\Http\Controllers\Controller;
 use App\Mail\SubscriptionReview;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+
 
 class ReviewController extends Controller
 {
@@ -36,8 +38,9 @@ class ReviewController extends Controller
      * @param  \App\Http\Requests\StoreReviewRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreReviewRequest $request)
+    public function store(Request $request)
     {
+
         $review = Review::create([
             'user_id' => auth('sanctum')->user()->id,
             'subscription_id' => $request->subscription_id,

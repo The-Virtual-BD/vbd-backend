@@ -76,7 +76,7 @@ class BloggerController extends Controller
             return response()->json(['message' =>  'Request accepted !'], 200);
 
 
-            
+
         } catch (\Throwable $e) {
             return response()->json([
                 'error' => $e->getMessage()

@@ -17,6 +17,8 @@ class Review extends Model
         'status'
     ];
 
+    protected $with = ['author'];
+
 
     public function author()
     {

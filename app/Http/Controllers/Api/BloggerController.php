@@ -116,7 +116,11 @@ class BloggerController extends Controller
             $user = User::where('id', auth('sanctum')->user()->id)->first();
 
             if ($mypendingapplication) {
-                return response()->json(['pending' =>  true , 'data'=> $user], 200);
+                // If this user is admin user
+                if ($user->hasRole('blogger')) {
+                    return response()->json(['pending' =>  true, 'role'=> 'user'], 200);
+                }
+                return response()->json(['pending' =>  true , 'role'=> 'user'], 200);
             } else {
 
                 // If this user is admin user

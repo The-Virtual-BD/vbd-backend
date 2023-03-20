@@ -45,21 +45,24 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $review = Review::create([
+                'user_id' => auth('sanctum')->user()->id,
+                'subscription_id' => $request->subscription_id,
+                'quantity' => $request->quantity,
+                'body' => $request->body,
+            ]);
 
-        $review = Review::create([
-            'user_id' => auth('sanctum')->user()->id,
-            'subscription_id' => $request->subscription_id,
-            'quantity' => $request->quantity,
-            'body' => $request->body,
-        ]);
+            $message = 'Thankyou for your precious feedback.';
 
-        $message = 'Thankyou for your precious feedback.';
+            try{
+                $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new SubscriptionReview($message));
+            }catch (\Throwable $e){}
+            return response()->json(['message' => 'Reviewed successfully!'], 200);
 
-        try{
-            $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new SubscriptionReview($message));
-        }catch (\Throwable $e){}
-
-        return response()->json(['message' => 'Reviewed successfully!'], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()]);
+        }
     }
 
     /**

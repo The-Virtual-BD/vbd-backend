@@ -29,6 +29,11 @@ class ReviewController extends Controller
         $reviewes = Review::all();
         return response()->json(['data' => $reviewes], 200);
     }
+    public function actreview()
+    {
+        $reviewes = Review::where('status',2)->get();
+        return response()->json(['data' => $reviewes], 200);
+    }
 
 
 
@@ -95,6 +100,13 @@ class ReviewController extends Controller
     {
         $review->update(['status' => 2]);
         return response()->json(['message' => 'Review approved and published!'], 200);
+    }
+
+
+    public function decline(Review $review)
+    {
+        $review->update(['status' => 3]);
+        return response()->json(['message' => 'Review Declined!'], 200);
     }
 
     /**

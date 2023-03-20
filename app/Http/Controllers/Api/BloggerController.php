@@ -111,13 +111,19 @@ class BloggerController extends Controller
     {
         try {
             $mypendingapplication = Blogger::where('user_id', auth('sanctum')->user()->id)->where('status', 1)->first();
-            // $user = User::findOrFail(auth('sanctum')->user()->id);
+
+
             $user = User::where('id', auth('sanctum')->user()->id)->first();
 
             if ($mypendingapplication) {
                 return response()->json(['pending' =>  true , 'data'=> $user], 200);
             } else {
-                return response()->json(['pending' =>  false , 'data'=> $user], 200);
+
+                // If this user is admin user
+                if ($user->hasRole('blogger')) {
+                    return response()->json(['pending' =>  false, 'role'=> 'blogger'], 200);
+                }
+                return response()->json(['pending' =>  false , 'role'=> 'user'], 200);
             }
         } catch (\Throwable $e) {
             return response()->json(['message' => $e->getMessage()], 500);

@@ -133,7 +133,6 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
     // Review Route
     Route::group(['prefix' => 'reviews'], function () {
         Route::get('/', [ReviewController::class, 'areviewes']);
-        Route::get('/actreview', [ReviewController::class, 'actreview']);
         Route::get('/show/{review}', [ReviewController::class, 'show']);
         Route::put('/approve/{review}', [ReviewController::class, 'approve']);
         Route::put('/decline/{review}', [ReviewController::class, 'decline']);

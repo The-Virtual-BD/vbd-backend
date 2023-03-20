@@ -138,4 +138,7 @@ Route::group(['prefix' => 'vaccancies'], function () {
 });
 
 
-//
+// Review Route
+Route::group(['prefix' => 'reviews'], function () {
+    Route::get('/actreview', [ReviewController::class, 'actreview']);
+});

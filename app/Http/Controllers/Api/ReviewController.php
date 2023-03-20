@@ -29,6 +29,8 @@ class ReviewController extends Controller
         $reviewes = Review::all();
         return response()->json(['data' => $reviewes], 200);
     }
+
+    
     public function actreview()
     {
         $reviewes = Review::where('status', 2)->get();

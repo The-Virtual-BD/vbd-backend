@@ -31,7 +31,7 @@ class ReviewController extends Controller
     }
     public function actreview()
     {
-        $reviewes = Review::where('status',2)->get();
+        $reviewes = Review::where('status', 2)->get();
         return response()->json(['data' => $reviewes], 200);
     }
 
@@ -55,11 +55,11 @@ class ReviewController extends Controller
 
             $message = 'Thankyou for your precious feedback.';
 
-            try{
+            try {
                 $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new SubscriptionReview($message));
-            }catch (\Throwable $e){}
+            } catch (\Throwable $e) {
+            }
             return response()->json(['message' => 'Reviewed successfully!'], 200);
-
         } catch (\Throwable $e) {
             return response()->json(['message' => $e->getMessage()]);
         }
@@ -73,7 +73,11 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        //
+        try {
+            return response()->json(['data' => $review], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()]);
+        }
     }
 
     /**

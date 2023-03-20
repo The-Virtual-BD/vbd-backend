@@ -111,7 +111,7 @@ class BloggerController extends Controller
     {
         try {
             $mypendingapplication = Blogger::where('user_id', auth('sanctum')->user()->id)->where('status', 1)->first();
-            $user = auth('sanctum')->user();
+            $user = User::findOrFail(auth('sanctum')->user()->id);
             if ($mypendingapplication) {
                 return response()->json(['pending' =>  true , 'data'=> $user], 200);
             } else {

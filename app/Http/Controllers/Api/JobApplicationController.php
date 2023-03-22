@@ -75,7 +75,7 @@ class JobApplicationController extends Controller
             }
             $jobApplication->save();
 
-            $message = 'Thanks for the application. We will contact with you soon.';
+            $message = "Job Application Successfully Submitted We 'll inform you of your application status.";
 
             try{
                 $sendmail = Mail::to($jobApplication->email)->send(new JobCreate($message));

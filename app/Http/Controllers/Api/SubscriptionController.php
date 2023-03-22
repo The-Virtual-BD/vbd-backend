@@ -73,7 +73,7 @@ class SubscriptionController extends Controller
 
             $subscription->save();
 
-            $message = 'Your application for subscription on review . We will contac with you soon.';
+            $message = 'Your application for subscription is under review. We will communicate with you soon.';
 
             try{
                 $sendmail = Mail::to(auth('sanctum')->user()->email)->send(new SubscriptionCreate($message));

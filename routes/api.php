@@ -109,6 +109,7 @@ Route::group(['prefix' => 'notices'], function () {
 Route::group(['prefix' => 'posts'], function () {
     Route::get('/activeposts', [PostController::class, 'activeposts']);
     Route::get('/activeposts/{post}', [PostController::class, 'show']);
+    Route::get('/myposts', [PostController::class, 'myposts']);
 });
 
 // Get all active services

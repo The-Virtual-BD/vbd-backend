@@ -25,10 +25,13 @@ class UserController extends Controller
             ], 500);
         }
     }
-    
+
+    // Get user details
+
     public function getUser(User $user)
     {
         try {
+            $user = User::with('posts')->findOrFail($user->id);
             return response()->json([
                 'user' => $user
             ], 200);
@@ -130,7 +133,7 @@ class UserController extends Controller
         }
     }
 
-    
+
     public function destroy(User $user)
     {
         try {

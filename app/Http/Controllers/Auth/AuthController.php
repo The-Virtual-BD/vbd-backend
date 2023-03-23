@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Models\NewsSubscriber;
 
 class AuthController extends Controller
 {
@@ -48,6 +49,15 @@ class AuthController extends Controller
             try{
                 $sendmail = Mail::to($data['email'])->send(new UserWelcome($message));
             }catch (\Throwable $e){}
+
+            // Newsleter subscribing
+
+            try {
+                $exist = NewsSubscriber::where('email',$user->email)->get();
+                if ($exist->count() < 0) {
+                    $subscribe = NewsSubscriber::create(['email' => $user->email]);
+                }
+            } catch (\Throwable $e) {}
 
 
 

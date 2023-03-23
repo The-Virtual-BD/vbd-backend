@@ -18,9 +18,16 @@ class Comment extends Model
         'body',
     ];
 
+    protected $with = ['author'];
+
 
     public function post()
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -54,7 +54,7 @@ class AuthController extends Controller
 
             try {
                 $exist = NewsSubscriber::where('email',$user->email)->get();
-                if ($exist->count() < 0) {
+                if ($exist->count() <= 0) {
                     $subscribe = NewsSubscriber::create(['email' => $user->email]);
                 }
             } catch (\Throwable $e) {}

@@ -106,7 +106,7 @@ class UserController extends Controller
                 'phone' => 'required|numeric',
                 'nationality' => 'required',
                 // 'password' => 'nullable|string|confirmed',
-                'role' => 'required',
+                // 'role' => 'required',
             ]);
 
             // Update user

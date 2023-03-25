@@ -105,7 +105,7 @@ class UserController extends Controller
                 'profession' => 'required',
                 'phone' => 'required|numeric',
                 'nationality' => 'required',
-                'password' => 'required|string|confirmed',
+                // 'password' => 'nullable|string|confirmed',
                 'role' => 'required',
             ]);
 
@@ -118,13 +118,16 @@ class UserController extends Controller
                 'profession' => $data['profession'],
                 'phone' => $data['phone'],
                 'nationality' => $data['nationality'],
-                'password' => Hash::make($data['password']),
+                // 'password' => Hash::make($data['password']),
             ]);
 
-            $user->syncRoles($request->role);
-            return response()->json([
-                'message' => 'User updated Successfully'
-            ], 200);
+            if ($request->role) {
+                # code...
+                $user->syncRoles($request->role);
+                return response()->json([
+                    'message' => 'User updated Successfully'
+                ], 200);
+            }
 
         } catch (\Throwable $e) {
             return response()->json([
